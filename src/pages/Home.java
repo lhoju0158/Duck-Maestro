@@ -19,6 +19,7 @@ public class Home extends JFrame{
         c.setBackground(new Color(33,150,211));
 
         // ImageIcon
+
         ImageIcon defaultProfile = new ImageIcon("./images/defaultProfile.jpg");
         ImageIcon gifProfile = new ImageIcon("./images/gifProfile.gif");
         JLabel profile = new JLabel(defaultProfile);
