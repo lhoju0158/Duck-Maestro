@@ -40,7 +40,7 @@ public class Home extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
-                new Score();
+                new Score("Drama","IU",4,4);
             }
 
         });
