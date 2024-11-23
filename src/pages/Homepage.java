@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Home extends JFrame{
+public class Homepage extends JFrame{
     //  Container c;
     // void setPage(boolean visible){
     //     c.setVisible(visible);
     // }
 
-    public Home(){
+    public Homepage(){
         setTitle("Home");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container c = getContentPane();
@@ -41,7 +41,8 @@ public class Home extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
-                new Score("Drama","IU",4,4);
+                new Scorepage("Drama","IU",4,4);
+                Scorepage.measure = (float)  4/ (float) 4;
             }
 
         });
