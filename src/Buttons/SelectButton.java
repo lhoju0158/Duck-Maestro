@@ -43,4 +43,8 @@ public class SelectButton extends JToggleButton {
 
         return new Dimension(buttonWidth, buttonHeight);
     }
+//    public void unselect() {
+//        setSelected(false); // 선택 해제
+//        repaint();          // 상태 갱신
+//    }
 }

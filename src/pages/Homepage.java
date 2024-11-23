@@ -6,19 +6,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Homepage extends JFrame{
-    //  Container c;
-    // void setPage(boolean visible){
-    //     c.setVisible(visible);
-    // }
-
     public Homepage(){
         setTitle("Home");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container c = getContentPane();
         c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
         c.setBackground(new Color(33,150,211));
-
-        // ImageIcon
 
         ImageIcon defaultProfile = new ImageIcon("./images/defaultProfile.jpg");
         ImageIcon gifProfile = new ImageIcon("./images/gifProfile.gif");
@@ -42,7 +35,7 @@ public class Homepage extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
                 new Scorepage("Drama","IU",4,4);
-                Scorepage.measure = (float)  4/ (float) 4;
+                Scorepage.measure = (double)  4/ (double) 4;
             }
 
         });

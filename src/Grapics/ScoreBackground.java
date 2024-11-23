@@ -86,7 +86,7 @@ public class ScoreBackground extends JPanel {
 
                 if (j != 4) {
                     int measureGap = (tempS1End.x - tempS1Start.x) / 4;
-                    System.out.println("measureGap = "+measureGap);
+                    // System.out.println("measureGap = "+measureGap);
                     for (int s = 1; s < 4; s++) {
                         g.drawLine(
                                 tempS1Start.x + (measureGap * s),
@@ -146,7 +146,7 @@ public class ScoreBackground extends JPanel {
         g.drawLine(904, s2Start.y, s2Start.x, s2Start.y + 32);
         g.drawLine(810, s1End.y, s1End.x, s1End.y + 32);
         g.drawLine(1620, s2End.y, s2End.x, s2End.y + 32);
-        System.out.println(s2End); //1620
+        // System.out.println(s2End); //1620
         // System.out.println(s1Start);
     }
 }

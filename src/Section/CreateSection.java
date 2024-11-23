@@ -2,17 +2,71 @@ package Section;
 
 import Buttons.SelectButton;
 import Buttons.ControlButton;
+import pages.Scorepage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
 
-public class CreateSection extends JPanel {
+public class CreateSection extends JPanel{
+    private CreateSection1 createSection1 = new CreateSection1();
+    protected static JLabel selectedImage;
+
+    public CreateSection(){
+        setLayout(null);
+        // setBounds(0,0,1690,900);
+        createSection1.setBounds(920, 20, 720, 110);
+        add(createSection1);
+
+        ImageIcon imageIcon = new ImageIcon("");
+
+        selectedImage = new JLabel(imageIcon);
+        selectedImage.setBounds(860, 20, 50, 90);
+        selectedImage.setPreferredSize(new Dimension(40,50));
+        selectedImage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        selectedImage.setHorizontalAlignment(SwingConstants.CENTER);
+        selectedImage.setVerticalAlignment(SwingConstants.CENTER);
+        add(selectedImage);
+
+        setVisible(true);
+    }
+    public static void whichSelected(String noteOrRests){
+        selectedImage.setIcon(new ImageIcon("./images/"+noteOrRests+String.valueOf(CreateSection1.insertBeat)+".png"));
+        selectedImage.repaint();
+    }
+}
+
+
+class CreateSection1 extends JPanel {
     // private CardLayout cardLayout; // CardLayout 객체
     // private JPanel contentPanel; // 패널 전환을 위한 컨테이너
     // private NotesRestsRepeatMarkSection notesRestsRepeatMarkSection; // 버튼 관리 패널
     // private NoteSection noteSection; // Note 패널
+
+    protected static double insertBeat = -1;
+    protected static double insertMelody = 18.0;
+    protected static double modifyValue = 0.0;
+    // protected static String insertMelody = "";
+    protected static HashMap<String, Double> melodyHashmap = new HashMap<String, Double>() {{
+        put("G3", 0.0);
+        put("A3", 1.0);
+        put("B3", 2.0);
+        put("C4", 3.0);
+        put("D4", 4.0);
+        put("E4", 5.0);
+        put("F4", 6.0);
+        put("G4", 7.0);
+        put("A4", 8.0);
+        put("B4", 9.0);
+        put("C5", 10.0);
+        put("D5", 11.0);
+        put("E5", 12.0);
+        put("F5", 13.0);
+        put("G5", 14.0);
+        put("Rest", 16.0);
+    }};
 
     private String[] beatTexts = {
             "4",                // 온음표
@@ -25,18 +79,19 @@ public class CreateSection extends JPanel {
             "0.375",     // 점16분음표
             "0.25",            // 16분음표
     };
+
     private String[] melodTexts = {
             "G3", // 솔
             "A3",
             "B3",
-            "C4", 
-            "D4", 
-            "E4", 
+            "C4",
+            "D4",
+            "E4",
             "F4",
             "G4",
-            "A4", 
-            "B4", 
-            "C5", 
+            "A4",
+            "B4",
+            "C5",
             "D5",
             "E5",
             "F5",
@@ -46,10 +101,12 @@ public class CreateSection extends JPanel {
     private String[] accidentalTexts = {"Flat", "Sharp", "Natural"};
     private SelectButton[] Beatbuttons = new SelectButton[9];
     private SelectButton[] Melodybuttons = new SelectButton[16];
-    private SelectButton[] Accidentalbuttons = new SelectButton[3];
+    protected static SelectButton[] Accidentalbuttons = new SelectButton[3];
+    // protected static String imagePath = "";
+    // protected static JLabel imageLabel;
 
-    public CreateSection() {
-        setLayout(new BorderLayout(30,0));
+    public CreateSection1() {
+        setLayout(new BorderLayout(20,0));
         JPanel p1 = new JPanel();
         p1.setLayout(new GridLayout(3,1,3,0)); // 사용자 지정 레이아웃 사용
         JLabel beat = new JLabel("Beat:");
@@ -61,7 +118,6 @@ public class CreateSection extends JPanel {
         accidental.setFont(labelFont); // 폰트 설정
 
         JPanel beats = new JPanel();
-        // beats.setBounds(0,0,1690,900);
 
         beats.add(beat);
         beats.setLayout(new FlowLayout(FlowLayout.LEFT, 7, 0));
@@ -74,8 +130,16 @@ public class CreateSection extends JPanel {
             Beatbuttons[i].addItemListener(new BeatListener());
         }
 
+//        ImageIcon selectedImage = new ImageIcon("");
+//        imageLabel = new JLabel(selectedImage);
+//        imageLabel.setPreferredSize(new Dimension(40, 18));
+//
+//        beats.add(imageLabel);
+
+
+
+
         JPanel melodies = new JPanel();
-        // melodies.setBounds(0,300,1690,900);
 
         melodies.add(melody);
         melodies.setLayout(new FlowLayout(FlowLayout.LEFT, 7, 0));
@@ -87,6 +151,7 @@ public class CreateSection extends JPanel {
             melodies.add(Melodybuttons[i]);
             Melodybuttons[i].addItemListener(new MelodyListener());
         }
+
 
         JPanel accidentalsAndRemarks = new JPanel();
         // accidentals.setBounds(0,600,1690,900);
@@ -101,9 +166,6 @@ public class CreateSection extends JPanel {
             accidentalsAndRemarks.add(Accidentalbuttons[i]);
             Accidentalbuttons[i].addItemListener(new AccidentalListener());
         }
-        // SelectButton createRemark = new SelectButton("Create Remark");
-        // accidentalsAndRemarks.add(createRemark);
-
 
         p1.add(beats);
         p1.add(melodies);
@@ -113,6 +175,8 @@ public class CreateSection extends JPanel {
         JPanel p2 = new JPanel();
         p2.setLayout(new GridLayout(3,1,0,10));
         ControlButton Create = new ControlButton("Insert",Color.GREEN);
+
+
         p2.add(Create);
         ControlButton Insert = new ControlButton("Undo",Color.BLUE);
         p2.add(Insert);
@@ -126,63 +190,50 @@ public class CreateSection extends JPanel {
         setOpaque(true);
         setVisible(true);
 
-//        // NotesRestsRepeatMarkSection 생성 및 설정
-//        notesRestsRepeatMarkSection = new NotesRestsRepeatMarkSection();
-//        notesRestsRepeatMarkSection.setBounds(850, 20, 1690, 40);
-//        add(notesRestsRepeatMarkSection);
-//
-//        // 리스너 등록
-//        notesRestsRepeatMarkSection.setButtonSelectionListener(buttonText -> {
-//            if (buttonText != null) {
-//                // 패널 전환 전 상태 초기화
-//                resetAllPanels();
-//                cardLayout.show(contentPanel, buttonText);
-//            } else {
-//                resetAllPanels(); // 버튼 선택 해제 시 모든 패널 초기화
-//                cardLayout.show(contentPanel, "Empty");
-//            }
-//        });
-//
-//        // CardLayout과 각 패널 설정
-//        cardLayout = new CardLayout();
-//        contentPanel = new JPanel(cardLayout);
-//        contentPanel.setBounds(850, 70, 500, 50);
-//
-//        // 개별 패널 생성 및 추가
-//        noteSection = new NoteSection();
-//        JPanel restsPanel = new JPanel();
-//        restsPanel.setBackground(Color.PINK);
-//        restsPanel.add(new JLabel("Rests Panel"));
-//
-//        JPanel repeatPanel = new JPanel();
-//        repeatPanel.setBackground(Color.LIGHT_GRAY);
-//        repeatPanel.add(new JLabel("Repeat Mark Panel"));
-//
-//        JPanel emptyPanel = new JPanel(); // 아무것도 없는 기본 빈 패널
-//
-//        // CardLayout에 패널 추가
-//        contentPanel.add(emptyPanel, "Empty"); // 빈 패널 추가
-//        contentPanel.add(noteSection, "Notes");
-//        contentPanel.add(restsPanel, "Rests");
-//        contentPanel.add(repeatPanel, "Repeat Mark");
-//
-//        cardLayout.show(contentPanel, "Empty"); // 초기 상태로 빈 패널 표시
-//        add(contentPanel);
+
+        Create.addActionListener(e -> {
+            Scorepage.insertBeat = insertBeat;
+            Scorepage.insertMelody = insertMelody + modifyValue;
+            System.out.println("Scorepage.insertBeat = "+Scorepage.insertBeat+", Scorepage.insertMelody = "+Scorepage.insertMelody);
+            // create 이후에 Score에서 판단하기
+            if(Scorepage.Checking()){
+                result.setText("OK!");
+                result.setForeground(Color.green);
+            }
+            else{
+                result.setText("Do Again!");
+                result.setForeground(Color.RED);
+            }
+        });
+
     }
 
-//    private void resetAllPanels() {
-//        notesRestsRepeatMarkSection.resetSelection(); // NotesRestsRepeatMarkSection 초기화
-//        noteSection.resetSelection(); // NoteSection 초기화
-//        // 다른 패널 초기화도 필요하면 추가
-//    }
+
 }
+
 
 class BeatListener implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         JToggleButton button = (JToggleButton) e.getSource();
         if (e.getStateChange() == ItemEvent.SELECTED) {
-            System.out.println(button.getText() + " is SELECTED.");
+            CreateSection1.insertBeat = Double.parseDouble(button.getText()) / 4;
+            if(CreateSection1.insertMelody==15.5||CreateSection1.insertMelody==16.0||CreateSection1.insertMelody==16.5){
+                CreateSection.whichSelected("rests/rest");
+                CreateSection1.Accidentalbuttons[2].setSelected(true);
+                CreateSection1.Accidentalbuttons[2].repaint();
+
+            }
+            else{
+                CreateSection.whichSelected("notes/note");
+            }
+            // System.out.println("Scorepage.insertBeat = "+Scorepage.insertBeat);
+            // System.out.println("CreateSection.insertBeat = "+CreateSection.insertBeat);
+            // String stringinsertBeat
+            // CreateSection.imagePath = "./images/notes/note"+String.valueOf(CreateSection.insertBeat)+".png";
+            // CreateSection.imageLabel.setIcon(new ImageIcon("./images/notes/note"+String.valueOf(CreateSection.insertBeat)+".png"));
+            // CreateSection.imageLabel.repaint();
+            // .out.println(CreateSection.imagePath);
         }
     }
 }
@@ -191,7 +242,18 @@ class MelodyListener implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         JToggleButton button = (JToggleButton) e.getSource();
         if (e.getStateChange() == ItemEvent.SELECTED) {
-            System.out.println(button.getText() + " is SELECTED.");
+            CreateSection1.insertMelody = CreateSection1.melodyHashmap.get(button.getText());
+            if(CreateSection1.insertMelody==15.5||CreateSection1.insertMelody==16.0||CreateSection1.insertMelody==16.5){
+                CreateSection.whichSelected("rests/rest");
+                CreateSection1.Accidentalbuttons[2].setSelected(true);
+
+                CreateSection1.Accidentalbuttons[2].repaint();
+
+            }
+            else{
+                CreateSection.whichSelected("notes/note");
+            }
+            // System.out.println("CreateSection.insertMelody = "+CreateSection.insertMelody);
         }
     }
 }
@@ -200,7 +262,16 @@ class AccidentalListener implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         JToggleButton button = (JToggleButton) e.getSource();
         if (e.getStateChange() == ItemEvent.SELECTED) {
-            System.out.println(button.getText() + " is SELECTED.");
+            if(button.getText().equals("Flat")){
+                CreateSection1.modifyValue = -0.5;
+            }
+            else if(button.getText().equals("Sharp")){
+                CreateSection1.modifyValue = +0.5;
+
+            }
+            else if(button.getText().equals("Natural")){
+                CreateSection1.modifyValue = 0.0;
+            }
         }
     }
 }
