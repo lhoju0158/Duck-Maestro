@@ -37,12 +37,12 @@ public class ScoreBackground extends JPanel {
 
         JLabel N = new JLabel(String.valueOf(n));
         N.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        N.setBounds(87, 133, 50, 30);
+        N.setBounds(87, 132, 50, 30);
 
         add(N);
         JLabel M = new JLabel(String.valueOf(m));
         M.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        M.setBounds(87, 151, 50, 30);
+        M.setBounds(87, 149, 50, 30);
 
         add(M);
         setOpaque(false);

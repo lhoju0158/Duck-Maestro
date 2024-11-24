@@ -4,9 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.border.Border;
+import java.util.ArrayList;
+import java.util.List;
 
 class Informationpage extends JFrame {
     private String title;
@@ -22,6 +25,39 @@ class Informationpage extends JFrame {
     private JTextField mText;
     private JTextField tempoText;
     private Homepage homepage;
+    private MyComboBoxMelody melody1;
+    private MyComboBoxMelody melody2;
+    private MyComboBoxMelody melody3;
+
+    private MyComboBoxAccidental accidental1;
+    private MyComboBoxAccidental accidental2;
+    private MyComboBoxAccidental accidental3;
+
+    protected static HashMap<String, Double> melodyHashmap = new HashMap<String, Double>() {{
+        put("", -1.0);
+        put("G3", 0.0);
+        put("A3", 1.0);
+        put("B3", 2.0);
+        put("C4", 3.0);
+        put("D4", 4.0);
+        put("E4", 5.0);
+        put("F4", 6.0);
+        put("G4", 7.0);
+        put("A4", 8.0);
+        put("B4", 9.0);
+        put("C5", 10.0);
+        put("D5", 11.0);
+        put("E5", 12.0);
+        put("F5", 13.0);
+        put("G5", 14.0);
+        // put("Rest", 16.0);
+    }};
+
+    protected static HashMap<String, Double> accidentalHashmap = new HashMap<String, Double>() {{
+        put("", 0.0);
+        put("Flat", -0.5);
+        put("Sharp", +0.5);
+    }};
 
     public Informationpage(Homepage homepage) {
         this.homepage = homepage;
@@ -69,12 +105,12 @@ class Informationpage extends JFrame {
         p5.setLayout(new FlowLayout(FlowLayout.LEFT));
         MyLabel accidentalLabel = new MyLabel("  Accidentals: ");
 
-        MyComboBoxMelody melody1 = new MyComboBoxMelody();
-        MyComboBoxAccidental accidental1 = new MyComboBoxAccidental();
-        MyComboBoxMelody melody2 = new MyComboBoxMelody();
-        MyComboBoxAccidental accidental2 = new MyComboBoxAccidental();
-        MyComboBoxMelody melody3 = new MyComboBoxMelody();
-        MyComboBoxAccidental accidental3 = new MyComboBoxAccidental();
+        melody1 = new MyComboBoxMelody();
+        accidental1 = new MyComboBoxAccidental();
+        melody2 = new MyComboBoxMelody();
+        accidental2 = new MyComboBoxAccidental();
+        melody3 = new MyComboBoxMelody();
+        accidental3 = new MyComboBoxAccidental();
 
         p5.add(accidentalLabel);
         p5.add(melody1);
@@ -161,9 +197,51 @@ class Informationpage extends JFrame {
             JOptionPane.showMessageDialog(this, "Denominator must be a power of 2.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        // out of melody range
+        if ((melody1.getSelectedItem().equals("G3")&&accidental1.getSelectedItem().equals("Flat"))||(melody1.getSelectedItem().equals("G5")&&accidental1.getSelectedItem().equals("Sharp"))) {
+            JOptionPane.showMessageDialog(this, "You can create score with melody from G3 to G5", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        ArrayList<double[]> accidentals = new ArrayList<>();
+        if (melodyHashmap.containsKey((String) melody1.getSelectedItem())
+                && accidentalHashmap.containsKey((String) accidental1.getSelectedItem())) {
+            double melodyValue = melodyHashmap.get((String) melody1.getSelectedItem());
+            double accidentalValue = accidentalHashmap.get((String) accidental1.getSelectedItem());
+            if (melodyValue != -1.0 && accidentalValue != 0.0) {
+                accidentals.add(new double[]{melodyValue, accidentalValue});
+            }
+        }
+        if (melodyHashmap.containsKey((String) melody2.getSelectedItem())
+                && accidentalHashmap.containsKey((String) accidental2.getSelectedItem())) {
+            double melodyValue = melodyHashmap.get((String) melody2.getSelectedItem());
+            double accidentalValue = accidentalHashmap.get((String) accidental2.getSelectedItem());
+            if (melodyValue != -1.0 && accidentalValue != 0.0) {
+                accidentals.add(new double[]{melodyValue, accidentalValue});
+            }
+        }
+
+        if (melodyHashmap.containsKey((String) melody3.getSelectedItem())
+                && accidentalHashmap.containsKey((String) accidental1.getSelectedItem())) {
+            double melodyValue = melodyHashmap.get((String) melody1.getSelectedItem());
+            double accidentalValue = accidentalHashmap.get((String) accidental1.getSelectedItem());
+
+            if (melodyValue != -1.0 && accidentalValue != 0.0) {
+                accidentals.add(new double[]{melodyValue, accidentalValue});
+            }
+        }
+        //https://velog.io/@san/2%EC%B0%A8%EC%9B%90-%EB%B0%B0%EC%97%B4%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%A2%85%EB%A5%98
+
         int choice = JOptionPane.showConfirmDialog(
                 this,
-                "Title: " + title + "\nComposer: " + composer + "\nTimes: " + n + " / " + m + "\nTempo: " + tempo,
+                "Title: " + title +
+                        "\nComposer: " + composer +
+                        "\nTimes: " + n + " / " + m +
+                        "\nTempo: " + tempo +
+                        "\nAccidentals: " +
+                        melody1.getSelectedItem() + "-" + accidental1.getSelectedItem() +
+                        ", " + melody2.getSelectedItem() + "-" + accidental2.getSelectedItem() +
+                        ", " + melody3.getSelectedItem() + "-" + accidental3.getSelectedItem(),
+                //여기//,
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
@@ -172,7 +250,7 @@ class Informationpage extends JFrame {
         if (choice == JOptionPane.YES_OPTION) {
             homepage.dispose();
             this.dispose();
-            new Scorepage(title, composer, n, m); // 새 페이지 열기 (NextPage 클래스 필요)
+            new Scorepage(title, composer, n, m,tempo); // 새 페이지 열기 (NextPage 클래스 필요)
         }
 
     }
@@ -180,7 +258,7 @@ class Informationpage extends JFrame {
 
 //    public static void main(String[] args) {
 //        new Informationpage();
-//    }
+//
 }
 
 class MyLabel extends JLabel {
@@ -206,28 +284,8 @@ class MyTextField extends JTextField {
 }
 
 class MyComboBoxMelody extends JComboBox<String> {
-    private static HashMap<String, Double> melodyHashmap = new HashMap<String, Double>() {{
-        put("", 0.0);
-        put("G3", 0.0);
-        put("A3", 1.0);
-        put("B3", 2.0);
-        put("C4", 3.0);
-        put("D4", 4.0);
-        put("E4", 5.0);
-        put("F4", 6.0);
-        put("G4", 7.0);
-        put("A4", 8.0);
-        put("B4", 9.0);
-        put("C5", 10.0);
-        put("D5", 11.0);
-        put("E5", 12.0);
-        put("F5", 13.0);
-        put("G5", 14.0);
-        // put("Rest", 16.0);
-    }};
-
     MyComboBoxMelody() {
-        super(melodyHashmap.keySet().toArray(new String[0]));
+        super(Informationpage.melodyHashmap.keySet().toArray(new String[0]));
         setFont(new Font("Century Gothic", Font.PLAIN, 14));
         setBackground(new Color(33, 150, 211));
         setForeground(Color.white);
@@ -235,10 +293,9 @@ class MyComboBoxMelody extends JComboBox<String> {
 }
 
 class MyComboBoxAccidental extends JComboBox<String> {
-    private static String[] accidentalTexts = {"", "Flat", "Sharp"};
 
     MyComboBoxAccidental() {
-        super(accidentalTexts);
+        super(Informationpage.accidentalHashmap.keySet().toArray(new String[0]));
         setFont(new Font("Century Gothic", Font.PLAIN, 14));
         setBackground(new Color(33, 150, 211));
         setForeground(Color.white);

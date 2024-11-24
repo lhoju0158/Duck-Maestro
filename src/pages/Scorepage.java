@@ -20,6 +20,7 @@ public class Scorepage extends JFrame {
     public static final int largeGap = 60;
     public static double insertBeat = 2.0; // 0 초과 1 이하
     public static double insertMelody = -1.0;
+    public static int tempo;
 
     public static HashMap<Double, String> melodyHashmap = new HashMap<Double, String>() {{
         put(0.0, "./sounds/G3.wav");
@@ -64,8 +65,8 @@ public class Scorepage extends JFrame {
         return true;
     }
 
-    public Scorepage(String name, String composer, int n, int m) {
-
+    public Scorepage(String name, String composer, int n, int m,int tempo) {
+        this.tempo = tempo;
         setTitle("Score");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1690, 900);
@@ -99,6 +100,6 @@ public class Scorepage extends JFrame {
     }
 
     public static void main(String[] args) {
-        Scorepage s = new Scorepage("Drama", "IU", 4, 4);
+         new Scorepage("Drama", "IU", 4, 4,107);
     }
 }
