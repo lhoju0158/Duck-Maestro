@@ -33,10 +33,12 @@ public class Homepage extends JFrame{
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                setVisible(false);
-                new Scorepage("Drama","IU",4,4);
-                Scorepage.measure = (double)  4/ (double) 4;
+                // setVisible(false);
+                // new Scorepage("Drama","IU",4,4);
+                // Scorepage.measure = (double)  4/ (double) 4;
+                new Informationpage(Homepage.this);
             }
+
 
         });
 
@@ -55,9 +57,8 @@ public class Homepage extends JFrame{
         c.add(title);
         c.add(Box.createVerticalStrut(200));
         setSize(1000,800);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
-    // public static void main(String[] args) {
-    //     new Home();
-    // }
+
 }

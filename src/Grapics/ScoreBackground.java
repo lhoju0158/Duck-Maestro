@@ -37,12 +37,12 @@ public class ScoreBackground extends JPanel {
 
         JLabel N = new JLabel(String.valueOf(n));
         N.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        N.setBounds(74, 136, 50, 30);
+        N.setBounds(87, 133, 50, 30);
 
         add(N);
         JLabel M = new JLabel(String.valueOf(m));
         M.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        M.setBounds(74, 154, 50, 30);
+        M.setBounds(87, 151, 50, 30);
 
         add(M);
         setOpaque(false);
@@ -73,6 +73,7 @@ public class ScoreBackground extends JPanel {
         Point tempS2End = new Point(s2End);
         ImageIcon High = new ImageIcon("./images/high.png");
         Image highImage = High.getImage(); // Convert ImageIcon to Image
+        JLabel highLabel = new JLabel(High); // 이거 나중에 JLabel로 고치지 => Image랑
 
         // temp line for check => erase later
 
@@ -118,18 +119,18 @@ public class ScoreBackground extends JPanel {
         Point tempS1 = new Point(s1Start);
         Point tempS2 = new Point(s2Start);
 
-        // draw first line
-        for (int j = 0; j < 5; j++) {
-            g.drawLine(tempS1.x - 56, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
-            g.drawLine(tempS2.x - 44, tempS2.y + j * smallGap, tempS2.x, tempS2.y + j * smallGap);
-        }
-        g.drawImage(highImage, tempS1.x - 52, tempS1.y - 18, 25, 65, this);
-        g.drawImage(highImage, tempS2.x - 36, tempS2.y - 18, 25, 65, this);
-        tempS1.y += (4 * smallGap + largeGap);
-        tempS2.y += (4 * smallGap + largeGap);
+//        // draw first line
+//        for (int j = 0; j < 5; j++) {
+//            g.drawLine(tempS1.x - 56, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
+//            g.drawLine(tempS2.x - 44, tempS2.y + j * smallGap, tempS2.x, tempS2.y + j * smallGap);
+//        }
+//        g.drawImage(highImage, tempS1.x - 52, tempS1.y - 18, 25, 65, this);
+//        g.drawImage(highImage, tempS2.x - 36, tempS2.y - 18, 25, 65, this);
+//        tempS1.y += (4 * smallGap + largeGap);
+//        tempS2.y += (4 * smallGap + largeGap);
         // draw remain lines
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 5; j++) {
                 g.drawLine(tempS1.x - 44, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
                 g.drawLine(tempS2.x - 44, tempS2.y + j * smallGap, tempS2.x, tempS2.y + j * smallGap);

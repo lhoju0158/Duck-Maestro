@@ -25,7 +25,6 @@ public class SelectButton extends JToggleButton {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createLineBorder(color, 1));
 
-        // 텍스트 크기에 따라 버튼 크기 설정
         Dimension size = calculateButtonSize(text);
         setPreferredSize(size);
     }
@@ -37,14 +36,10 @@ public class SelectButton extends JToggleButton {
         int textWidth = metrics.stringWidth(text); // 텍스트의 너비
         int textHeight = metrics.getHeight(); // 텍스트의 높이
 
-        // 텍스트 크기에 padding 추가
         int buttonWidth = textWidth + (6 * 2); // 양쪽 여백 포함
         int buttonHeight = textHeight + 4;    // 위아래 여백 포함
 
         return new Dimension(buttonWidth, buttonHeight);
     }
-//    public void unselect() {
-//        setSelected(false); // 선택 해제
-//        repaint();          // 상태 갱신
-//    }
+
 }

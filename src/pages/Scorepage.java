@@ -6,7 +6,6 @@ import Section.CreateSection;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.util.HashMap;
 
 
@@ -21,7 +20,6 @@ public class Scorepage extends JFrame {
     public static final int largeGap = 60;
     public static double insertBeat = 2.0; // 0 초과 1 이하
     public static double insertMelody = -1.0;
-    // public static JLabel selectedImage;
 
     public static HashMap<Double, String> melodyHashmap = new HashMap<Double, String>() {{
         put(0.0, "./sounds/G3.wav");
@@ -55,14 +53,9 @@ public class Scorepage extends JFrame {
     }};
 
     public static boolean Checking() {
-        // checking해야하는것
-        // 1) nextSpotX에 오차 범위 내에 있나
-        // 2) measure를 안넘나 => note인지 rest인지, beat인지 아닌지 확인하기
-        // 3) 유효하지 않은 멜로디
+
         if ((remainMeasure < insertBeat) || measure < insertBeat || !melodyHashmap.containsKey(insertMelody)) {
             // 안됨
-            // System.out.println("remainMeasure = "+remainMeasure+" insertBeat = "+insertBeat+" measure = "+measure);
-
             return false;
         }
         // 된다!
@@ -70,11 +63,6 @@ public class Scorepage extends JFrame {
 
         return true;
     }
-//    public static void whichSelected(){
-//        selectedImage.setIcon(new ImageIcon("./images/notes/note"+String.valueOf(insertBeat)+".png"));
-//        selectedImage.repaint();
-//        System.out.println("./images/notes/note"+String.valueOf(insertBeat)+".png");
-//    }
 
     public Scorepage(String name, String composer, int n, int m) {
 
@@ -86,32 +74,26 @@ public class Scorepage extends JFrame {
         Container c = getContentPane();
 
         ScoreBackground scoreBackground = new ScoreBackground(name, composer, n, m);
-        scoreBackground.setBounds(0, 0, 1690, 900);
+        scoreBackground.setLocation(0, 0);
+        scoreBackground.setSize(1690,900);
 
 
         ScoreForeground scoreForeground = new ScoreForeground();
-        scoreForeground.setBounds(0, 0, 1690, 900);
+        scoreForeground.setLocation(0, 0);
+        scoreForeground.setSize(1690,900);
 
 
         CreateSection createSection = new CreateSection();
-        createSection.setBounds(0, 0, 1690, 900);
-
-//        ImageIcon imageIcon = new ImageIcon("");
-//
-//        selectedImage = new JLabel(imageIcon);
-//        selectedImage.setBounds(0,0,1690,900);
-//        selectedImage.setPreferredSize(new Dimension(40,18));
+        createSection.setLocation(0, 0);
+        createSection.setSize(1690,900);
 
         c.add(scoreBackground);
         c.add(scoreForeground);
         c.add(createSection);
-        // c.add(selectedImage);
-
 
         c.setComponentZOrder(scoreBackground, c.getComponentCount() - 3);
         c.setComponentZOrder(scoreForeground, c.getComponentCount() - 2);
         c.setComponentZOrder(createSection, c.getComponentCount() - 1);
-        // c.setComponentZOrder(selectedImage,c.getComponentCount()-1);
 
         setVisible(true);
     }
