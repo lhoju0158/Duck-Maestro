@@ -4,6 +4,7 @@ import pages.Scorepage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class ScoreForeground extends JPanel {
     public static final Point s1Start = Scorepage.s1Start;
@@ -12,43 +13,32 @@ public class ScoreForeground extends JPanel {
     public static final Point s2End = Scorepage.s2End;
     public static final int smallGap = Scorepage.smallGap;
     public static final int largeGap = Scorepage.largeGap;
+    private static HashMap<Double, String> nowMelodyHashma = Scorepage.nowMelodyHashmap;
+
+    protected static HashMap<String, Double> melodyPosition = new HashMap<String, Double>() {{
+        put("G3", 0.0);
+        put("A3", 1.0);
+        put("B3", 2.0);
+        put("C4", 3.0);
+        put("D4", 4.0);
+        put("E4", 5.0);
+        put("F4", 6.0);
+        put("G4", 7.0);
+        put("A4", 8.0);
+        put("B4", 9.0);
+        put("C5", 10.0);
+        put("D5", 11.0);
+        put("E5", 12.0);
+        put("F5", 13.0);
+        put("G5", 14.0);
+        put("Rest", 16.0);
+    }};
+
     // public static Point now;
 
     public ScoreForeground() {
         setBackground(Color.cyan);
-        setOpaque(false);
-
-
-        // for dubugging
-//        // setBackground(Color.cyan);
-//
-//        // 마우스 이벤트 추가
-//        addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                // 더블클릭인지 확인
-//                if (e.getClickCount() == 2) {
-//                   Point clickPoint = e.getPoint();
-//                    System.out.printf("Mouse Double-Clicked at: x=%d, y=%d%n", clickPoint.x, clickPoint.y);
-//                }
-//            }
-//
-//            @Override
-//            public void mouseReleased(MouseEvent e) {
-//                // 드래그 후 마우스 버튼을 놓을 때 좌표 출력
-//                Point releasePoint = e.getPoint();
-//                System.out.printf("Mouse Released at in Foreground: x=%d, y=%d%n", releasePoint.x, releasePoint.y);
-//            }
-//        });
+        setOpaque(true);
     }
-//    public static void call(double beat,String noteOrRest){
-//        Point mouseLocation = MouseInfo.getPointerInfo().getLocation(); // 현재 마우스 커서 위치 가져오기
-//        now = new Point(mouseLocation.x-7,mouseLocation.y-30);
-////        nowX =mouseLocation.x-7;
-////        nowY = mouseLocation.y-30;
-//        System.out.printf("Mouse Cursor Position: x=%d, y=%d%n", mouseLocation.x-7, mouseLocation.y-30);
-//        //
-//
-//        if (Score.Checking(now,beat,noteOrRest));
-//    }
+
 }

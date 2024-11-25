@@ -28,6 +28,7 @@ public class CreateSection extends JPanel{
         selectedImage.setHorizontalAlignment(SwingConstants.CENTER);
         selectedImage.setVerticalAlignment(SwingConstants.CENTER);
         add(selectedImage);
+        setOpaque(true);
 
         setVisible(true);
     }

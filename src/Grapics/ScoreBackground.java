@@ -4,6 +4,7 @@ import pages.Scorepage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class ScoreBackground extends JPanel {
     private final Point s1Start = Scorepage.s1Start;
@@ -13,6 +14,7 @@ public class ScoreBackground extends JPanel {
     private final int smallGap = Scorepage.smallGap;
     private final int largeGap = Scorepage.largeGap;
 
+    // private final static HashMap<Double, String> nowMelodyHashma = Scorepage.nowMelodyHashmap;
     private int n;
     private int m;
 
@@ -75,39 +77,36 @@ public class ScoreBackground extends JPanel {
         Image highImage = High.getImage(); // Convert ImageIcon to Image
         JLabel highLabel = new JLabel(High); // 이거 나중에 JLabel로 고치지 => Image랑
 
-        // temp line for check => erase later
 
         for (int i = 0; i < 8; i++) {
-
-            //
 
             for (int j = 0; j < 5; j++) {
                 g.drawLine(tempS1Start.x, tempS1Start.y + j * smallGap, tempS1End.x, tempS1End.y + j * smallGap);
                 g.drawLine(tempS2Start.x, tempS2Start.y + j * smallGap, tempS2End.x, tempS2End.y + j * smallGap);
 
-                if (j != 4) {
-                    int measureGap = (tempS1End.x - tempS1Start.x) / 4;
-                    // System.out.println("measureGap = "+measureGap);
-                    for (int s = 1; s < 4; s++) {
-                        g.drawLine(
-                                tempS1Start.x + (measureGap * s),
-                                tempS1Start.y + j * smallGap,
-                                tempS1Start.x + (measureGap * s),
-                                tempS1Start.y + (j + 1) * smallGap
-
-                        );
-                        // System.out.println("measureGap = "+measureGap);
-
-                        g.drawLine(
-                                tempS2Start.x + (measureGap * s),
-                                tempS2Start.y + j * smallGap,
-                                tempS2Start.x + (measureGap * s),
-                                tempS2Start.y + (j + 1) * smallGap
-                        );
-                        // System.out.println("measureGap = "+measureGap);
-
-                    }
-                }
+//                if (j != 4) {
+//                    int measureGap = (tempS1End.x - tempS1Start.x) / 4;
+//                    // System.out.println("measureGap = "+measureGap);
+//                    for (int s = 1; s < 4; s++) {
+//                        g.drawLine(
+//                                tempS1Start.x + (measureGap * s),
+//                                tempS1Start.y + j * smallGap,
+//                                tempS1Start.x + (measureGap * s),
+//                                tempS1Start.y + (j + 1) * smallGap
+//
+//                        );
+//                        // System.out.println("measureGap = "+measureGap);
+//
+//                        g.drawLine(
+//                                tempS2Start.x + (measureGap * s),
+//                                tempS2Start.y + j * smallGap,
+//                                tempS2Start.x + (measureGap * s),
+//                                tempS2Start.y + (j + 1) * smallGap
+//                        );
+//                        // System.out.println("measureGap = "+measureGap);
+//
+//                    }
+//                }
             }
 
             tempS1Start.y += (4 * smallGap + largeGap);
@@ -143,10 +142,10 @@ public class ScoreBackground extends JPanel {
             tempS2.y += (4 * smallGap + largeGap);
         }
         // test code, erase later
-        g.drawLine(94, s1Start.y, s1Start.x, s1Start.y + 32);
-        g.drawLine(904, s2Start.y, s2Start.x, s2Start.y + 32);
-        g.drawLine(810, s1End.y, s1End.x, s1End.y + 32);
-        g.drawLine(1620, s2End.y, s2End.x, s2End.y + 32);
+//        g.drawLine(94, s1Start.y, s1Start.x, s1Start.y + 32);
+//        g.drawLine(904, s2Start.y, s2Start.x, s2Start.y + 32);
+//        g.drawLine(810, s1End.y, s1End.x, s1End.y + 32);
+//        g.drawLine(1620, s2End.y, s2End.x, s2End.y + 32);
         // System.out.println(s2End); //1620
         // System.out.println(s1Start);
     }

@@ -1,15 +1,9 @@
 package pages;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 import javax.swing.border.Border;
-import java.util.ArrayList;
-import java.util.List;
 
 class Informationpage extends JFrame {
     private String title;
@@ -25,39 +19,42 @@ class Informationpage extends JFrame {
     private JTextField mText;
     private JTextField tempoText;
     private Homepage homepage;
-    private MyComboBoxMelody melody1;
-    private MyComboBoxMelody melody2;
-    private MyComboBoxMelody melody3;
+//    private MyComboBoxMelody melody1;
+//    private MyComboBoxMelody melody2;
+//    private MyComboBoxMelody melody3;
+//
+//    private MyComboBoxAccidental accidental1;
+//    private MyComboBoxAccidental accidental2;
+//    private MyComboBoxAccidental accidental3;
 
-    private MyComboBoxAccidental accidental1;
-    private MyComboBoxAccidental accidental2;
-    private MyComboBoxAccidental accidental3;
+//    protected static HashMap<String, Double> melodyHashmap = new HashMap<String, Double>() {{
+//        put("", -1.0);
+//        put("G3", 0.0);
+//        put("A3", 1.0);
+//        put("B3", 2.0);
+//        put("C4", 3.0);
+//        put("D4", 4.0);
+//        put("E4", 5.0);
+//        put("F4", 6.0);
+//        put("G4", 7.0);
+//        put("A4", 8.0);
+//        put("B4", 9.0);
+//        put("C5", 10.0);
+//        put("D5", 11.0);
+//        put("E5", 12.0);
+//        put("F5", 13.0);
+//        put("G5", 14.0);
+//        // put("Rest", 16.0);
+//    }};
+//    protected static String[] keySignature = new String[]{"","C","D","E","F","G","A","B"};
+//    protected static HashMap<String, Double> accidentalHashmap = new HashMap<String, Double>() {{
+//        put("", 0.0);
+//        put("Flat", -0.5);
+//        put("Sharp", +0.5);
+//    }};
+    // ArrayList<String> accidentalsForPrint = new ArrayList<>();
+    // ArrayList<double[]> accidentals = new ArrayList<>();
 
-    protected static HashMap<String, Double> melodyHashmap = new HashMap<String, Double>() {{
-        put("", -1.0);
-        put("G3", 0.0);
-        put("A3", 1.0);
-        put("B3", 2.0);
-        put("C4", 3.0);
-        put("D4", 4.0);
-        put("E4", 5.0);
-        put("F4", 6.0);
-        put("G4", 7.0);
-        put("A4", 8.0);
-        put("B4", 9.0);
-        put("C5", 10.0);
-        put("D5", 11.0);
-        put("E5", 12.0);
-        put("F5", 13.0);
-        put("G5", 14.0);
-        // put("Rest", 16.0);
-    }};
-
-    protected static HashMap<String, Double> accidentalHashmap = new HashMap<String, Double>() {{
-        put("", 0.0);
-        put("Flat", -0.5);
-        put("Sharp", +0.5);
-    }};
 
     public Informationpage(Homepage homepage) {
         this.homepage = homepage;
@@ -67,7 +64,7 @@ class Informationpage extends JFrame {
 
         c.setLayout(new BorderLayout());
         JPanel Informations = new JPanel();
-        Informations.setLayout(new GridLayout(6, 1, 10, 10));
+        Informations.setLayout(new GridLayout(5, 1, 10, 10));
 
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -101,26 +98,26 @@ class Informationpage extends JFrame {
         p4.add(tempoLabel);
         p4.add(tempoText);
 
-        JPanel p5 = new JPanel();
-        p5.setLayout(new FlowLayout(FlowLayout.LEFT));
-        MyLabel accidentalLabel = new MyLabel("  Accidentals: ");
-
-        melody1 = new MyComboBoxMelody();
-        accidental1 = new MyComboBoxAccidental();
-        melody2 = new MyComboBoxMelody();
-        accidental2 = new MyComboBoxAccidental();
-        melody3 = new MyComboBoxMelody();
-        accidental3 = new MyComboBoxAccidental();
-
-        p5.add(accidentalLabel);
-        p5.add(melody1);
-        p5.add(accidental1);
-        p5.add(new MyLabel(" / "));
-        p5.add(melody2);
-        p5.add(accidental2);
-        p5.add(new MyLabel(" / "));
-        p5.add(melody3);
-        p5.add(accidental3);
+//        JPanel p5 = new JPanel();
+//        p5.setLayout(new FlowLayout(FlowLayout.LEFT));
+//        MyLabel accidentalLabel = new MyLabel("  Key Signatures: ");
+////
+//        melody1 = new MyComboBoxMelody();
+//        accidental1 = new MyComboBoxAccidental();
+//        melody2 = new MyComboBoxMelody();
+//        accidental2 = new MyComboBoxAccidental();
+//        melody3 = new MyComboBoxMelody();
+//        accidental3 = new MyComboBoxAccidental();
+//
+//        p5.add(accidentalLabel);
+//        p5.add(melody1);
+//        p5.add(accidental1);
+//        p5.add(new MyLabel(" / "));
+//        p5.add(melody2);
+//        p5.add(accidental2);
+//        p5.add(new MyLabel(" / "));
+//        p5.add(melody3);
+//        p5.add(accidental3);
 
         JPanel p6 = new JPanel();
         p6.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -140,7 +137,7 @@ class Informationpage extends JFrame {
         Informations.add(p2);
         Informations.add(p3);
         Informations.add(p4);
-        Informations.add(p5);
+        // Informations.add(p5);
         Informations.add(p6);
         add(Informations, BorderLayout.CENTER);
 
@@ -161,7 +158,7 @@ class Informationpage extends JFrame {
         p2.setOpaque(false);
         p3.setOpaque(false);
         p4.setOpaque(false);
-        p5.setOpaque(false);
+        // p5.setOpaque(false);
         p6.setOpaque(false);
         North.setOpaque(false);
         South.setOpaque(false);
@@ -175,6 +172,13 @@ class Informationpage extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+//    private String printAccidentals(){
+//        String result="";
+//        for(int i=0;i<accidentals.size();i++){
+//            result+=(accidentalsForPrint.get(i)+" ");
+//        }
+//        return result;
+//    }
 
     private void saveData() {
         title = (titleText.getText() == null || titleText.getText().trim().isEmpty()) ? "Untitled" : titleText.getText();
@@ -197,50 +201,39 @@ class Informationpage extends JFrame {
             JOptionPane.showMessageDialog(this, "Denominator must be a power of 2.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // out of melody range
-        if ((melody1.getSelectedItem().equals("G3")&&accidental1.getSelectedItem().equals("Flat"))||(melody1.getSelectedItem().equals("G5")&&accidental1.getSelectedItem().equals("Sharp"))) {
-            JOptionPane.showMessageDialog(this, "You can create score with melody from G3 to G5", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        ArrayList<double[]> accidentals = new ArrayList<>();
-        if (melodyHashmap.containsKey((String) melody1.getSelectedItem())
-                && accidentalHashmap.containsKey((String) accidental1.getSelectedItem())) {
-            double melodyValue = melodyHashmap.get((String) melody1.getSelectedItem());
-            double accidentalValue = accidentalHashmap.get((String) accidental1.getSelectedItem());
-            if (melodyValue != -1.0 && accidentalValue != 0.0) {
-                accidentals.add(new double[]{melodyValue, accidentalValue});
-            }
-        }
-        if (melodyHashmap.containsKey((String) melody2.getSelectedItem())
-                && accidentalHashmap.containsKey((String) accidental2.getSelectedItem())) {
-            double melodyValue = melodyHashmap.get((String) melody2.getSelectedItem());
-            double accidentalValue = accidentalHashmap.get((String) accidental2.getSelectedItem());
-            if (melodyValue != -1.0 && accidentalValue != 0.0) {
-                accidentals.add(new double[]{melodyValue, accidentalValue});
-            }
-        }
+//        // out of melody range
+//        if(!melody1.getSelectedItem().equals("")&&!accidental1.getSelectedItem().equals("")){
+//            accidentalsForPrint.add((String)(melody1.getSelectedItem())+"-"+(String)(accidental1.getSelectedItem()));
+//            String melodyValue = (String) melody1.getSelectedItem();
+//            double accidentalValue = accidentalHashmap.get((String) accidental1.getSelectedItem());
+//            accidentals.add(new double[]{melodyValue, accidentalValue});
+//        }
+//        if(!melody2.getSelectedItem().equals("")&&!accidental2.getSelectedItem().equals("")){
+//            accidentalsForPrint.add((String)(melody2.getSelectedItem())+"-"+(String)(accidental2.getSelectedItem()));
+//            double melodyValue = melodyHashmap.get((String) melody2.getSelectedItem());
+//            double accidentalValue = accidentalHashmap.get((String) accidental2.getSelectedItem());
+//            accidentals.add(new double[]{melodyValue, accidentalValue});
+//        }
+//        if(!melody3.getSelectedItem().equals("")&&!accidental3.getSelectedItem().equals("")){
+//            accidentalsForPrint.add((String)(melody3.getSelectedItem())+"-"+(String)(accidental3.getSelectedItem()));
+//            double melodyValue = melodyHashmap.get((String) melody3.getSelectedItem());
+//            double accidentalValue = accidentalHashmap.get((String) accidental3.getSelectedItem());
+//            accidentals.add(new double[]{melodyValue, accidentalValue});
+//        }
 
-        if (melodyHashmap.containsKey((String) melody3.getSelectedItem())
-                && accidentalHashmap.containsKey((String) accidental1.getSelectedItem())) {
-            double melodyValue = melodyHashmap.get((String) melody1.getSelectedItem());
-            double accidentalValue = accidentalHashmap.get((String) accidental1.getSelectedItem());
 
-            if (melodyValue != -1.0 && accidentalValue != 0.0) {
-                accidentals.add(new double[]{melodyValue, accidentalValue});
-            }
-        }
+
         //https://velog.io/@san/2%EC%B0%A8%EC%9B%90-%EB%B0%B0%EC%97%B4%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%A2%85%EB%A5%98
+
 
         int choice = JOptionPane.showConfirmDialog(
                 this,
                 "Title: " + title +
                         "\nComposer: " + composer +
                         "\nTimes: " + n + " / " + m +
-                        "\nTempo: " + tempo +
-                        "\nAccidentals: " +
-                        melody1.getSelectedItem() + "-" + accidental1.getSelectedItem() +
-                        ", " + melody2.getSelectedItem() + "-" + accidental2.getSelectedItem() +
-                        ", " + melody3.getSelectedItem() + "-" + accidental3.getSelectedItem(),
+                        "\nTempo: " + tempo,
+                        // "\nKey Signatures: "
+                        // printAccidentals(),
                 //여기//,
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION,
@@ -251,6 +244,7 @@ class Informationpage extends JFrame {
             homepage.dispose();
             this.dispose();
             new Scorepage(title, composer, n, m,tempo); // 새 페이지 열기 (NextPage 클래스 필요)
+            // System.out.println(accidentals);
         }
 
     }
@@ -283,22 +277,22 @@ class MyTextField extends JTextField {
     }
 }
 
-class MyComboBoxMelody extends JComboBox<String> {
-    MyComboBoxMelody() {
-        super(Informationpage.melodyHashmap.keySet().toArray(new String[0]));
-        setFont(new Font("Century Gothic", Font.PLAIN, 14));
-        setBackground(new Color(33, 150, 211));
-        setForeground(Color.white);
-    }
-}
-
-class MyComboBoxAccidental extends JComboBox<String> {
-
-    MyComboBoxAccidental() {
-        super(Informationpage.accidentalHashmap.keySet().toArray(new String[0]));
-        setFont(new Font("Century Gothic", Font.PLAIN, 14));
-        setBackground(new Color(33, 150, 211));
-        setForeground(Color.white);
-    }
-}
-
+//class MyComboBoxMelody extends JComboBox<String> {
+//    MyComboBoxMelody() {
+//        super(Informationpage.keySignature);
+//        setFont(new Font("Century Gothic", Font.PLAIN, 14));
+//        setBackground(new Color(33, 150, 211));
+//        setForeground(Color.white);
+//    }
+//}
+//
+//class MyComboBoxAccidental extends JComboBox<String> {
+//
+//    MyComboBoxAccidental() {
+//        super(Informationpage.accidentalHashmap.keySet().toArray(new String[0]));
+//        setFont(new Font("Century Gothic", Font.PLAIN, 14));
+//        setBackground(new Color(33, 150, 211));
+//        setForeground(Color.white);
+//    }
+//}
+//

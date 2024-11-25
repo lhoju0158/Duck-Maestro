@@ -7,6 +7,7 @@ import Section.CreateSection;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 
 public class Scorepage extends JFrame {
@@ -22,7 +23,7 @@ public class Scorepage extends JFrame {
     public static double insertMelody = -1.0;
     public static int tempo;
 
-    public static HashMap<Double, String> melodyHashmap = new HashMap<Double, String>() {{
+    public static final HashMap<Double, String> originalMelodyHashmap = new HashMap<Double, String>() {{
         put(0.0, "./sounds/G3.wav");
         put(0.5, "./sounds/G#3_Ab3.wav");
         put(1.0, "./sounds/A3.wav");
@@ -52,10 +53,11 @@ public class Scorepage extends JFrame {
         put(16.0, "./sounds/Rest.wav");
         put(16.5, "./sounds/Rest.wav");
     }};
+    public static HashMap<Double, String> nowMelodyHashmap = new HashMap<Double, String>();
 
     public static boolean Checking() {
 
-        if ((remainMeasure < insertBeat) || measure < insertBeat || !melodyHashmap.containsKey(insertMelody)) {
+        if ((remainMeasure < insertBeat) || measure < insertBeat || !nowMelodyHashmap.containsKey(insertMelody)) {
             // 안됨
             return false;
         }
@@ -65,28 +67,31 @@ public class Scorepage extends JFrame {
         return true;
     }
 
-    public Scorepage(String name, String composer, int n, int m,int tempo) {
+    public Scorepage(String name, String composer, int n, int m, int tempo) {
         this.tempo = tempo;
         setTitle("Score");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1690, 900);
         setLayout(null);
 
+        // 넘어온 accidentals를 유효한 값으로 변경하기
+        // settingNowAccidentals(accidentals);
+
         Container c = getContentPane();
 
         ScoreBackground scoreBackground = new ScoreBackground(name, composer, n, m);
         scoreBackground.setLocation(0, 0);
-        scoreBackground.setSize(1690,900);
+        scoreBackground.setSize(1690, 900);
 
 
         ScoreForeground scoreForeground = new ScoreForeground();
         scoreForeground.setLocation(0, 0);
-        scoreForeground.setSize(1690,900);
+        scoreForeground.setSize(1690, 900);
 
 
         CreateSection createSection = new CreateSection();
         createSection.setLocation(0, 0);
-        createSection.setSize(1690,900);
+        createSection.setSize(1690, 900);
 
         c.add(scoreBackground);
         c.add(scoreForeground);
@@ -99,7 +104,19 @@ public class Scorepage extends JFrame {
         setVisible(true);
     }
 
+    public static void settingNowAccidentals(ArrayList<double[]> accidentals) {
+        nowMelodyHashmap = new HashMap<>(originalMelodyHashmap);
+        for (int i = 0; i < accidentals.size(); i++) {
+            double melody = accidentals.get(i)[0];
+            double accidental = accidentals.get(i)[1];
+            if (nowMelodyHashmap.containsKey(melody)) {
+                nowMelodyHashmap.put(melody, originalMelodyHashmap.get(melody + accidental));
+            }
+        }
+    }
+
     public static void main(String[] args) {
-         new Scorepage("Drama", "IU", 4, 4,107);
+        new Scorepage("Drama", "IU", 4, 4, 107);
+
     }
 }
