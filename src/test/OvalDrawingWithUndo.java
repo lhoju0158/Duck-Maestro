@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Line2D;
+import java.awt.geom.*;
 import java.util.ArrayList;
 
 public class OvalDrawingWithUndo extends JFrame {
@@ -26,54 +26,36 @@ public class OvalDrawingWithUndo extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    // 타원 및 선 그리기용 JPanel 클래스
     class OvalPanel extends JPanel {
-        private final ArrayList<ShapeGroup> shapes = new ArrayList<>(); // 타원과 선을 묶어 저장
-        private Point startPoint = null; // 타원 시작점
-        private Point currentPoint = null; // 현재 마우스 위치
+        private final ArrayList<ShapeGroup> shapes = new ArrayList<>();
 
         public OvalPanel() {
-            // 마우스 이벤트 추가
             addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(MouseEvent e) {
-                    startPoint = e.getPoint(); // 시작점 저장
-                }
+                public void mouseClicked(MouseEvent e) {
+                    Point clickPoint = e.getPoint();
 
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                    Point endPoint = e.getPoint(); // 끝점 저장
+                    // 1. 타원 (10도 회전)
+                    Ellipse2D ellipse = new Ellipse2D.Double(clickPoint.x - 50, clickPoint.y - 40, 100, 80);
+                    AffineTransform rotateTransform = AffineTransform.getRotateInstance(
+                            Math.toRadians(340), clickPoint.x, clickPoint.y);
+                    Shape rotatedEllipse = rotateTransform.createTransformedShape(ellipse);
 
-                    // 타원의 위치와 크기 계산
-                    int x = Math.min(startPoint.x, endPoint.x);
-                    int y = Math.min(startPoint.y, endPoint.y);
-                    int width = Math.abs(startPoint.x - endPoint.x);
-                    int height = Math.abs(startPoint.y - endPoint.y);
+                    // 2. 수평선 (왼쪽 -60, 오른쪽 60)
+                    Line2D horizontalLine = new Line2D.Double(clickPoint.x - 60, clickPoint.y, clickPoint.x + 60, clickPoint.y);
 
-                    // 타원과 선을 그룹으로 추가
-                    shapes.add(new ShapeGroup(
-                            new Rectangle(x, y, width, height),
-                            new Line2D.Double(startPoint, endPoint)
-                    ));
+                    // 3. 세로선 (두께 있음)
+                    int verticalTopY = clickPoint.y - 100;
+                    Shape thickVerticalLine = new Rectangle2D.Double(clickPoint.x - 2, verticalTopY, 4, 100);
 
-                    // 초기화 및 화면 갱신
-                    startPoint = null;
-                    currentPoint = null;
-                    repaint();
-                }
-            });
+                    // 4. 깃발 (세로선 위)
+                    Polygon flag = new Polygon();
+                    flag.addPoint(clickPoint.x, verticalTopY); // 꼭짓점 (세로선 위)
+                    flag.addPoint(clickPoint.x + 20, verticalTopY + 10);
+                    flag.addPoint(clickPoint.x + 20, verticalTopY - 10);
+                    flag.addPoint(clickPoint.x, verticalTopY);
 
-            // 마우스 이동 이벤트 추가
-            addMouseMotionListener(new MouseAdapter() {
-                @Override
-                public void mouseMoved(MouseEvent e) {
-                    currentPoint = e.getPoint(); // 현재 마우스 위치 갱신
-                    repaint();
-                }
-
-                @Override
-                public void mouseDragged(MouseEvent e) {
-                    currentPoint = e.getPoint(); // 드래그 중 위치 갱신
+                    shapes.add(new ShapeGroup(rotatedEllipse, horizontalLine, thickVerticalLine, flag));
                     repaint();
                 }
             });
@@ -83,52 +65,62 @@ public class OvalDrawingWithUndo extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            // 저장된 모든 타원과 선을 그림
-            g2.setColor(Color.BLUE);
             for (ShapeGroup group : shapes) {
-                Rectangle oval = group.getOval();
-                Line2D line = group.getLine();
+                // 1. 타원
+                g2.setColor(Color.BLUE);
+                g2.draw(group.getRotatedEllipse());
 
-                // 타원 그리기
-                g2.drawOval(oval.x, oval.y, oval.width, oval.height);
-
-                // 선 그리기
-                g2.draw(line);
-            }
-
-            // 현재 마우스 커서 위치에 선 그리기 (드래그 중일 때)
-            if (startPoint != null && currentPoint != null) {
+                // 2. 수평선
                 g2.setColor(Color.RED);
-                g2.drawLine(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
+                g2.draw(group.getHorizontalLine());
+
+                // 3. 세로선 (두께 있음)
+                g2.setColor(Color.GREEN);
+                g2.fill(group.getThickVerticalLine());
+
+                // 4. 깃발
+                g2.setColor(Color.MAGENTA);
+                g2.fill(group.getFlag());
             }
         }
 
-        // Undo 기능
         public void undoLastShape() {
             if (!shapes.isEmpty()) {
-                shapes.remove(shapes.size() - 1); // 마지막 그룹(타원과 선) 제거
-                repaint(); // 화면 갱신
+                shapes.remove(shapes.size() - 1);
+                repaint();
             }
         }
     }
 
-    // 타원과 선을 묶는 클래스
     class ShapeGroup {
-        private final Rectangle oval;
-        private final Line2D line;
+        private final Shape rotatedEllipse;
+        private final Shape horizontalLine;
+        private final Shape thickVerticalLine;
+        private final Shape flag;
 
-        public ShapeGroup(Rectangle oval, Line2D line) {
-            this.oval = oval;
-            this.line = line;
+        public ShapeGroup(Shape rotatedEllipse, Shape horizontalLine, Shape thickVerticalLine, Shape flag) {
+            this.rotatedEllipse = rotatedEllipse;
+            this.horizontalLine = horizontalLine;
+            this.thickVerticalLine = thickVerticalLine;
+            this.flag = flag;
         }
 
-        public Rectangle getOval() {
-            return oval;
+        public Shape getRotatedEllipse() {
+            return rotatedEllipse;
         }
 
-        public Line2D getLine() {
-            return line;
+        public Shape getHorizontalLine() {
+            return horizontalLine;
+        }
+
+        public Shape getThickVerticalLine() {
+            return thickVerticalLine;
+        }
+
+        public Shape getFlag() {
+            return flag;
         }
     }
 

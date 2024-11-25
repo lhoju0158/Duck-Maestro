@@ -10,6 +10,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
 
+import static pages.Scorepage.scoreForeground;
+
 public class CreateSection extends JPanel{
     private CreateSection1 createSection1 = new CreateSection1();
     protected static JLabel selectedImage;
@@ -155,12 +157,12 @@ class CreateSection1 extends JPanel {
 
         JPanel p2 = new JPanel();
         p2.setLayout(new GridLayout(3,1,0,10));
-        ControlButton Create = new ControlButton("Insert",Color.GREEN);
+        ControlButton Insert = new ControlButton("Insert",Color.GREEN);
 
 
-        p2.add(Create);
-        ControlButton Insert = new ControlButton("Undo",Color.BLUE);
         p2.add(Insert);
+        ControlButton Undo = new ControlButton("Undo",Color.BLUE);
+        p2.add(Undo);
         JLabel result = new JLabel("Result");
         result.setFont(new Font("Roboto", Font.PLAIN, 12));
         result.setHorizontalAlignment(SwingConstants.CENTER);
@@ -172,7 +174,7 @@ class CreateSection1 extends JPanel {
         setVisible(true);
 
 
-        Create.addActionListener(e -> {
+        Insert.addActionListener(e -> {
             Scorepage.insertBeat = insertBeat;
             Scorepage.insertMelody = insertMelody + modifyValue;
             System.out.println("Scorepage.insertBeat = "+Scorepage.insertBeat+", Scorepage.insertMelody = "+Scorepage.insertMelody);
@@ -186,6 +188,18 @@ class CreateSection1 extends JPanel {
                 result.setForeground(Color.RED);
             }
         });
+
+        Undo.addActionListener(e -> {
+            if(Scorepage.scoreForeground.undoLastShape()){
+                result.setText("Undo!");
+                result.setForeground(Color.green);
+            }
+            else{
+                result.setText("Nothing!");
+                result.setForeground(Color.RED);
+            }
+        });
+
 
     }
 

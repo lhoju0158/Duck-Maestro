@@ -22,6 +22,7 @@ public class Scorepage extends JFrame {
     public static double insertBeat = 2.0; // 0 초과 1 이하
     public static double insertMelody = -1.0;
     public static int tempo;
+    public static ScoreForeground scoreForeground;
 
     public static final HashMap<Double, String> originalMelodyHashmap = new HashMap<Double, String>() {{
         put(0.0, "./sounds/G3.wav");
@@ -53,19 +54,38 @@ public class Scorepage extends JFrame {
         put(16.0, "./sounds/Rest.wav");
         put(16.5, "./sounds/Rest.wav");
     }};
-    public static HashMap<Double, String> nowMelodyHashmap = new HashMap<Double, String>();
+    // public static HashMap<Double, String> nowMelodyHashmap = new HashMap<Double, String>();
 
-    public static boolean Checking() {
-
-        if ((remainMeasure < insertBeat) || measure < insertBeat || !nowMelodyHashmap.containsKey(insertMelody)) {
-            // 안됨
-            return false;
-        }
-        // 된다!
-        // 그러면 이제 melody 만들고 값 넣기
-
-        return true;
+//    public static boolean Checking() {
+//
+//        if ((remainMeasure < insertBeat) ||( measure < insertBeat) || (!nowMelodyHashmap.containsKey(insertMelody))) {
+//            // 안됨
+//            // 여기 다시 check
+//            return false;
+//        }
+//        // 된다!
+//        // 그러면 이제 melody 만들고 값 넣기
+//
+//        return true;
+//    }
+public static boolean Checking() {
+    if (remainMeasure < insertBeat) {
+        System.out.println("Fail: remainMeasure < insertBeat");
+        return false;
     }
+    if (measure < insertBeat) {
+        System.out.println("Fail: measure < insertBeat");
+        return false;
+    }
+    if (!originalMelodyHashmap.containsKey(insertMelody)) {
+        System.out.println("Fail: insertMelody not in nowMelodyHashmap");
+        return false;
+    }
+    // 이제 멜로디 그리고, 생성하기!
+
+    return true;
+}
+
 
     public Scorepage(String name, String composer, int n, int m, int tempo) {
         this.tempo = tempo;
@@ -74,9 +94,6 @@ public class Scorepage extends JFrame {
         setSize(1690, 900);
         setLayout(null);
 
-        // 넘어온 accidentals를 유효한 값으로 변경하기
-        // settingNowAccidentals(accidentals);
-
         Container c = getContentPane();
 
         ScoreBackground scoreBackground = new ScoreBackground(name, composer, n, m);
@@ -84,7 +101,7 @@ public class Scorepage extends JFrame {
         scoreBackground.setSize(1690, 900);
 
 
-        ScoreForeground scoreForeground = new ScoreForeground();
+        scoreForeground = new ScoreForeground();
         scoreForeground.setLocation(0, 0);
         scoreForeground.setSize(1690, 900);
 
@@ -104,16 +121,16 @@ public class Scorepage extends JFrame {
         setVisible(true);
     }
 
-    public static void settingNowAccidentals(ArrayList<double[]> accidentals) {
-        nowMelodyHashmap = new HashMap<>(originalMelodyHashmap);
-        for (int i = 0; i < accidentals.size(); i++) {
-            double melody = accidentals.get(i)[0];
-            double accidental = accidentals.get(i)[1];
-            if (nowMelodyHashmap.containsKey(melody)) {
-                nowMelodyHashmap.put(melody, originalMelodyHashmap.get(melody + accidental));
-            }
-        }
-    }
+//    public static void settingNowAccidentals(ArrayList<double[]> accidentals) {
+//        // originalMelodyHashmap = new HashMap<>(originalMelodyHashmap);
+//        for (int i = 0; i < accidentals.size(); i++) {
+//            double melody = accidentals.get(i)[0];
+//            double accidental = accidentals.get(i)[1];
+//            if (originalMelodyHashmap.containsKey(melody)) {
+//                originalMelodyHashmap.put(melody, originalMelodyHashmap.get(melody + accidental));
+//            }
+//        }
+//    }
 
     public static void main(String[] args) {
         new Scorepage("Drama", "IU", 4, 4, 107);
