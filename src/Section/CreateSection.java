@@ -175,22 +175,26 @@ class CreateSection1 extends JPanel {
 
 
         Insert.addActionListener(e -> {
+            Scorepage.insertMelodyForDraw = new double[]{insertMelody, modifyValue};
             Scorepage.insertBeat = insertBeat;
-            Scorepage.insertMelody = insertMelody + modifyValue;
-            System.out.println("Scorepage.insertBeat = "+Scorepage.insertBeat+", Scorepage.insertMelody = "+Scorepage.insertMelody);
-            // create 이후에 Score에서 판단하기
-            if(Scorepage.Checking()){
+            Scorepage.insertMelodyForPlay = insertMelody + modifyValue;
+            if (Scorepage.Checking()) {
+
                 result.setText("OK!");
                 result.setForeground(Color.green);
-            }
-            else{
+            } else {
+
                 result.setText("Do Again!");
                 result.setForeground(Color.RED);
             }
+//            scoreForeground.revalidate(); // 레이아웃 강제 갱신
+//            scoreForeground.repaint();   // 화면 즉시 갱신
         });
 
+
         Undo.addActionListener(e -> {
-            if(Scorepage.scoreForeground.undoLastShape()){
+            /// Scorepage.
+            if(Scorepage.undoLastElement()){
                 result.setText("Undo!");
                 result.setForeground(Color.green);
             }

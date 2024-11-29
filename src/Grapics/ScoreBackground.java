@@ -39,12 +39,12 @@ public class ScoreBackground extends JPanel {
 
         JLabel N = new JLabel(String.valueOf(n));
         N.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        N.setBounds(87, 132, 50, 30);
+        N.setBounds(85, 132, 50, 30);
 
         add(N);
         JLabel M = new JLabel(String.valueOf(m));
         M.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        M.setBounds(87, 149, 50, 30);
+        M.setBounds(85, 149, 50, 30);
 
         add(M);
         setOpaque(false);
@@ -84,29 +84,54 @@ public class ScoreBackground extends JPanel {
                 g.drawLine(tempS1Start.x, tempS1Start.y + j * smallGap, tempS1End.x, tempS1End.y + j * smallGap);
                 g.drawLine(tempS2Start.x, tempS2Start.y + j * smallGap, tempS2End.x, tempS2End.y + j * smallGap);
 
-//                if (j != 4) {
-//                    int measureGap = (tempS1End.x - tempS1Start.x) / 4;
-//                    // System.out.println("measureGap = "+measureGap);
-//                    for (int s = 1; s < 4; s++) {
-//                        g.drawLine(
-//                                tempS1Start.x + (measureGap * s),
-//                                tempS1Start.y + j * smallGap,
-//                                tempS1Start.x + (measureGap * s),
-//                                tempS1Start.y + (j + 1) * smallGap
-//
-//                        );
-//                        // System.out.println("measureGap = "+measureGap);
-//
-//                        g.drawLine(
-//                                tempS2Start.x + (measureGap * s),
-//                                tempS2Start.y + j * smallGap,
-//                                tempS2Start.x + (measureGap * s),
-//                                tempS2Start.y + (j + 1) * smallGap
-//                        );
-//                        // System.out.println("measureGap = "+measureGap);
-//
-//                    }
-//                }
+                if (j != 4) {
+
+                    int measureGap = (tempS1End.x - tempS1Start.x) / 4;
+                    // System.out.println("measureGap = "+measureGap);
+                    if(i==0){
+                        for (int s = 1; s < 4; s++) {
+                            g.drawLine(
+                                    tempS1Start.x+10 + (measureGap * s),
+                                    tempS1Start.y + j * smallGap,
+                                    tempS1Start.x+10 + (measureGap * s),
+                                    tempS1Start.y + (j + 1) * smallGap
+
+                            );
+                            // System.out.println("measureGap = "+measureGap);
+
+                            g.drawLine(
+                                    tempS2Start.x-2+ (measureGap * s),
+                                    tempS2Start.y + j * smallGap,
+                                    tempS2Start.x-2 + (measureGap * s),
+                                    tempS2Start.y + (j + 1) * smallGap
+                            );
+                            // System.out.println("measureGap = "+measureGap);
+
+                        }
+                    }
+                    else{
+                        for (int s = 1; s < 4; s++) {
+                            g.drawLine(
+                                    tempS1Start.x -2+ (measureGap * s),
+                                    tempS1Start.y + j * smallGap,
+                                    tempS1Start.x-2 + (measureGap * s),
+                                    tempS1Start.y + (j + 1) * smallGap
+
+                            );
+                            // System.out.println("measureGap = "+measureGap);
+
+                            g.drawLine(
+                                    tempS2Start.x -2+ (measureGap * s),
+                                    tempS2Start.y + j * smallGap,
+                                    tempS2Start.x-2 + (measureGap * s),
+                                    tempS2Start.y + (j + 1) * smallGap
+                            );
+                            // System.out.println("measureGap = "+measureGap);
+
+                        }
+                    }
+
+                }
             }
 
             tempS1Start.y += (4 * smallGap + largeGap);
@@ -118,18 +143,19 @@ public class ScoreBackground extends JPanel {
         Point tempS1 = new Point(s1Start);
         Point tempS2 = new Point(s2Start);
 
-//        // draw first line
-//        for (int j = 0; j < 5; j++) {
-//            g.drawLine(tempS1.x - 56, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
-//            g.drawLine(tempS2.x - 44, tempS2.y + j * smallGap, tempS2.x, tempS2.y + j * smallGap);
-//        }
-//        g.drawImage(highImage, tempS1.x - 52, tempS1.y - 18, 25, 65, this);
-//        g.drawImage(highImage, tempS2.x - 36, tempS2.y - 18, 25, 65, this);
-//        tempS1.y += (4 * smallGap + largeGap);
-//        tempS2.y += (4 * smallGap + largeGap);
+        // draw first line
+        for (int j = 0; j < 5; j++) {
+            g.drawLine(tempS1.x - 49, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
+            g.drawLine(tempS1.x +716, tempS1.y + j * smallGap, tempS1.x+721, tempS1.y + j * smallGap);
+            g.drawLine(tempS2.x - 44, tempS2.y + j * smallGap, tempS2.x, tempS2.y + j * smallGap);
+        }
+        g.drawImage(highImage, tempS1.x - 42, tempS1.y - 18, 25, 65, this);
+        g.drawImage(highImage, tempS2.x - 36, tempS2.y - 18, 25, 65, this);
+        tempS1.y += (4 * smallGap + largeGap);
+        tempS2.y += (4 * smallGap + largeGap);
         // draw remain lines
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 5; j++) {
                 g.drawLine(tempS1.x - 44, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
                 g.drawLine(tempS2.x - 44, tempS2.y + j * smallGap, tempS2.x, tempS2.y + j * smallGap);

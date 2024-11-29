@@ -10,6 +10,11 @@ public class BeatAttributes {
         this.tailNum = tailNum;
         this.spot = spot;
     }
+//    public BeatAttributes(){
+//        this.isFilled = false;
+//        this.tailNum = 0;
+//        this.spot = false;
+//    }
     public boolean getisFilled(){
         return isFilled;
     }

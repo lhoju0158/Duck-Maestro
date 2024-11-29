@@ -10,6 +10,10 @@ public class MelodyAttributes {
         this.isUpward = isUpward;
         this.lineInformation = lineInformation;
     }
+//    public MelodyAttributes(){
+//        this.isUpward = false;
+//        this.lineInformation = new int []{0,0};
+//    }
     public boolean getisUpward(){
         return isUpward;
     }
