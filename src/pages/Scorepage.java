@@ -1,14 +1,19 @@
 package pages;
 
+import Section.PlaySection;
 import components.*;
 import Grapics.ScoreBackground;
 import Grapics.ScoreForeground;
 import Section.CreateSection;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Scorepage extends JFrame {
@@ -24,32 +29,36 @@ public class Scorepage extends JFrame {
     public static double insertMelodyForPlay = -1.0;
     public static double[] insertMelodyForDraw = new double[]{-1.0, 0.0};
     public static int tempo;
+    public static String songTitle = "";
     public static ScoreForeground scoreForeground;
     public static List<List<Element>> elements = new ArrayList<>();
+    // public static List<List<Element>> remarkedElements = new ArrayList<>();
+    //  public static boolean isRemarked = false;
+    public static Clip currentClip;
 
     public static HashMap<Double, BeatAttributes> beatSettings = new HashMap<Double, BeatAttributes>() {{
 //     public BeatAttributes(boolean isFilled,int tailNum,boolean spot)
-        put(1.0, new BeatAttributes(false, 0,false));
-        put(0.75, new BeatAttributes(false,0,true));
-        put(0.5, new BeatAttributes(false, 0,false));
-        put(0.375, new BeatAttributes(true,0,true ));
-        put(0.25, new BeatAttributes(true, 0,false));
-        put(0.1875, new BeatAttributes(true,1,true ));
-        put(0.125, new BeatAttributes(true, 1,false));
-        put(0.09375, new BeatAttributes(true, 2,true));
-        put(0.0625, new BeatAttributes(true, 2,false));
+        put(1.0, new BeatAttributes(false, 0, false));
+        put(0.75, new BeatAttributes(false, 0, true));
+        put(0.5, new BeatAttributes(false, 0, false));
+        put(0.375, new BeatAttributes(true, 0, true));
+        put(0.25, new BeatAttributes(true, 0, false));
+        put(0.1875, new BeatAttributes(true, 1, true));
+        put(0.125, new BeatAttributes(true, 1, false));
+        put(0.09375, new BeatAttributes(true, 2, true));
+        put(0.0625, new BeatAttributes(true, 2, false));
     }};
     public static HashMap<Double, RestAttributes> restSetiing = new HashMap<Double, RestAttributes>() {{
         // public RestAttributes(int[] hat,boolean curl,int[] hook,boolean spot){
-        put(1.0, new RestAttributes(new int[]{1,0},false,new int[]{0,0},false));
-        put(0.75, new RestAttributes(new int[]{1,1},false,new int[]{0,0},true));
-        put(0.5, new RestAttributes(new int[]{1,1}, false,new int[]{0,0},false));
-        put(0.375, new RestAttributes(new int[]{0,0},true,new int[]{0,0} ,true));
-        put(0.25, new RestAttributes(new int[]{0,0}, true,new int[]{0,0},false));
-        put(0.1875, new RestAttributes(new int[]{0,0},false,new int[]{1,1},true ));
-        put(0.125, new RestAttributes(new int[]{0,0}, false,new int[]{1,1},false));
-        put(0.09375, new RestAttributes(new int[]{0,0}, false,new int[]{1,2},true));
-        put(0.0625, new RestAttributes(new int[]{0,0}, false,new int[]{1,2},false));
+        put(1.0, new RestAttributes(new int[]{1, 0}, false, new int[]{0, 0}, false));
+        put(0.75, new RestAttributes(new int[]{1, 1}, false, new int[]{0, 0}, true));
+        put(0.5, new RestAttributes(new int[]{1, 1}, false, new int[]{0, 0}, false));
+        put(0.375, new RestAttributes(new int[]{0, 0}, true, new int[]{0, 0}, true));
+        put(0.25, new RestAttributes(new int[]{0, 0}, true, new int[]{0, 0}, false));
+        put(0.1875, new RestAttributes(new int[]{0, 0}, false, new int[]{1, 1}, true));
+        put(0.125, new RestAttributes(new int[]{0, 0}, false, new int[]{1, 1}, false));
+        put(0.09375, new RestAttributes(new int[]{0, 0}, false, new int[]{1, 2}, true));
+        put(0.0625, new RestAttributes(new int[]{0, 0}, false, new int[]{1, 2}, false));
     }};
     public static HashMap<Double, MelodyAttributes> melodySettings = new HashMap<Double, MelodyAttributes>() {{
         // public MelodyAttributes(boolean isUpward,int[][] lineInformation)
@@ -100,10 +109,22 @@ public class Scorepage extends JFrame {
         put(16.0, "./sounds/Rest.wav");
         put(16.5, "./sounds/Rest.wav");
     }};
+
     // `elements` 초기화
-    public static void initializeElements() {
+    public static void initializeElementsAndSong() {
         for (int i = 0; i < 64; i++) {
             elements.add(new ArrayList<>());
+        }
+        File outputFile = new File(songTitle);
+        System.out.println(songTitle);
+        if (outputFile.exists()) {
+            if (outputFile.delete()) {
+
+                System.out.println("Existing file deleted: " + songTitle);
+            } else {
+                System.out.println("Failed to delete existing file: " + songTitle);
+                return; // 파일 삭제 실패 시 종료
+            }
         }
     }
 
@@ -121,6 +142,7 @@ public class Scorepage extends JFrame {
         System.out.println("더 이상 되돌릴 작업이 없습니다.");
         return false;
     }
+
     public static boolean Checking() {
         if (getNowRemainMeasure() < insertBeat) {
             System.out.println("Fail: remainMeasure < insertBeat");
@@ -132,7 +154,10 @@ public class Scorepage extends JFrame {
         }
         System.out.println("--------------------------");
         // System.out.println("Before: remainMeasure = "+getNowRemainMeasure()+" insertBeat = "+insertBeat);
-        setPositionAndAddingMelody();
+        if (!setPositionAndAddingMelody()) {
+            System.out.println("Fail: insertMelody not in nowMelodyHashmap");
+            return false;
+        }
         // System.out.println("After: remainMeasure = "+getNowRemainMeasure()+" insertBeat = "+insertBeat);
         System.out.println("--------------------------");
         scoreForeground.updateShapes();
@@ -140,26 +165,27 @@ public class Scorepage extends JFrame {
         scoreForeground.repaint();
         return true;
     }
-    public static double getNowRemainMeasure(){
+
+    public static double getNowRemainMeasure() {
         for (int i = elements.size() - 1; i >= 0; i--) {
             List<Element> measure = elements.get(i);
             if (!measure.isEmpty()) {
-                double remainMeasure =0.0;
-                for(int j=0;j<measure.size();j++){
-                    remainMeasure+=measure.get(j).getBeat();
+                double remainMeasure = 0.0;
+                for (int j = 0; j < measure.size(); j++) {
+                    remainMeasure += measure.get(j).getBeat();
                     // System.out.println(j+" NowRemainMeasure = "+remainMeasure);
                 }
                 // System.out.println("total remainMeasure = "+(1.0-remainMeasure));
-                if(remainMeasure==1.0){
+                if (remainMeasure == 1.0) {
                     return 1.0;
                 }
-                return 1.0-remainMeasure;
+                return 1.0 - remainMeasure;
             }
         }
         return 1.0; // empty 상황
     }
 
-    public static void setPositionAndAddingMelody(){
+    public static boolean setPositionAndAddingMelody() {
         Element lastElement;
         Element insertElement;
         Point startPosition;
@@ -168,43 +194,55 @@ public class Scorepage extends JFrame {
             List<Element> measure = elements.get(i);
             if (!measure.isEmpty()) {
                 // lastElement 찾기
-                lastElement = measure.get(measure.size()-1);
-                System.out.println("measure's i = "+i+", lastElement = "+lastElement);
-                double total =0.0;
-                for(int j=0;j<measure.size();j++){
-                    total+=measure.get(j).getBeat();
-                    System.out.println("total = "+total);
+                lastElement = measure.get(measure.size() - 1);
+                System.out.println("measure's i = " + i + ", lastElement = " + lastElement);
+                double total = 0.0;
+                for (int j = 0; j < measure.size(); j++) {
+                    total += measure.get(j).getBeat();
+                    System.out.println("total = " + total);
                 }
-                if(total==1.0){
+                if (total == 1.0) {
+                    if ((i + 1) == 64) {
+                        return false;
+                    }
                     // 현재 measure에 element를 넣을 수 없을 때
                     System.out.println("element will be inserted to next measure");
-                    int x =i%4;
-                    int page =(i/32);
+                    int x = (i + 1) % 4;
+                    int page = (i + 1) / 32;
                     // remainMeasure = 1.0;
-                    System.out.println("x = "+x+", y="+page);
+                    System.out.println("x = " + x + ", page = " + page);
+                    insertElement = new Element();
+                    if ((i + 1) != 32) {
+                        if (x != 0) {
+                            // 1) 그냥 바로 옆 measure에 넣으면 된다
+                            System.out.println("insert case 1");
+                            startPosition = new Point(lastElement.getLastPosition().x + 4, lastElement.getStartPosition().y);
+                            insertElement = new Element(insertBeat, insertMelodyForPlay, startPosition, insertMelodyForDraw);
+                        } else {
+                            // 2) 근데 다음 마디가 줄을 바꿔야 한다
+                            if (page == 0) {
+                                System.out.println("insert case 2 - 0");
+                                // lastElement.getLastPosition will be 177
+                                System.out.println("lastElement.getLastPosition = " + lastElement.getLastPosition().x);
+                                startPosition = new Point(s1Start.x + 2, lastElement.getLastPosition().y + (4 * smallGap + largeGap));
+                                insertElement = new Element(insertBeat, insertMelodyForPlay, startPosition, insertMelodyForDraw);
+                            } else {
+                                System.out.println("insert case 2 - 1");
+                                // lastElement.getLastPosition will be 177
+                                System.out.println("lastElement.getLastPosition = " + lastElement.getLastPosition().x);
+                                startPosition = new Point(s2Start.x + 2, lastElement.getLastPosition().y + (4 * smallGap + largeGap));
+                                insertElement = new Element(insertBeat, insertMelodyForPlay, startPosition, insertMelodyForDraw);
+                            }
 
-                    if(x!=3){
-                        // 1) 그냥 바로 옆 measure에 넣으면 된다
-                        System.out.println("insert case 1");
-                        startPosition = new Point(lastElement.getLastPosition().x+4,lastElement.getStartPosition().y);
-                        insertElement = new Element(insertBeat,insertMelodyForPlay,startPosition,insertMelodyForDraw);
-                    }
-                    else{
-                        // 2) 근데 다음 마디가 줄을 바꿔야 한다
-                        if(page==0){
-                            System.out.println("insert case 2");
-                            // lastElement.getLastPosition will be 177
-                            System.out.println("lastElement.getLastPosition = "+lastElement.getLastPosition().x);
-                            startPosition = new Point(s1Start.x+2,lastElement.getLastPosition().y+(4 * smallGap + largeGap));
-                            insertElement = new Element(insertBeat,insertMelodyForPlay,startPosition,insertMelodyForDraw);
+
                         }
-                        else{
-                            // 3) 근데 다음 마디가 page 2의 첫마디다
-                            System.out.println("insert case 3");
-                            int buttonY = (s2Start.y + smallGap * 6 + (int) (smallGap / 2));
-                            startPosition = new Point(s2Start.x+2,(int) (buttonY - 4 * insertMelodyForDraw[0]));
-                            insertElement = new Element(insertBeat,insertMelodyForPlay,startPosition,insertMelodyForDraw);
-                        }
+                    } else {
+                        // 3) 근데 다음 마디가 page 2의 첫마디다
+                        System.out.println("insert case 3");
+                        int buttonY = (s2Start.y + smallGap * 6 + (int) (smallGap / 2));
+                        startPosition = new Point(s2Start.x + 2, buttonY);
+                        System.out.println("startPosition = "+startPosition.x+", "+startPosition.y);
+                        insertElement = new Element(insertBeat, insertMelodyForPlay, startPosition, insertMelodyForDraw);
                     }
                     if (i + 1 < elements.size()) {
                         elements.get(i + 1).add(insertElement);
@@ -213,41 +251,44 @@ public class Scorepage extends JFrame {
                         newMeasure.add(insertElement);
                         elements.add(newMeasure);
                     }
-                }
-                else{
+                } else {
                     // 현재 measure에 element를 넣을 수 있을 때
                     System.out.println("insert case 4");
                     System.out.println("element will be inserted to this measure");
-                    System.out.println("lastElement.getLastPosition().x = "+lastElement.getLastPosition().x+ " lastElement.getLastPosition().y = "+lastElement.getLastPosition().y);
-                    startPosition = new Point(lastElement.getLastPosition().x+1,lastElement.getLastPosition().y);
-                    insertElement = new Element(insertBeat,insertMelodyForPlay,startPosition,insertMelodyForDraw);
+                    System.out.println("lastElement.getLastPosition().x = " + lastElement.getLastPosition().x + " lastElement.getLastPosition().y = " + lastElement.getLastPosition().y);
+                    startPosition = new Point(lastElement.getLastPosition().x + 1, lastElement.getLastPosition().y);
+                    insertElement = new Element(insertBeat, insertMelodyForPlay, startPosition, insertMelodyForDraw);
                     measure.add(insertElement);
                 }
                 // remainMeasure-=insertBeat;
                 // System.out.println("in Scorepage, remainMeasure = "+remainMeasure);
-                return;
+                return true;
             }
         }
         int buttonY = (s1Start.y + smallGap * 6 + (int) (smallGap / 2));
-        insertElement = new Element(insertBeat,insertMelodyForPlay,new Point(s1Start.x+2+10,(int) (buttonY - 4 * insertMelodyForDraw[0])),insertMelodyForDraw);
+        // insertElement = new Element(insertBeat,insertMelodyForPlay,new Point(s1Start.x+2+10,(int) (buttonY - 4 * insertMelodyForDraw[0])),insertMelodyForDraw);
+        insertElement = new Element(insertBeat, insertMelodyForPlay, new Point(s1Start.x + 2 + 10, buttonY), insertMelodyForDraw);
         elements.get(0).add(insertElement);
+        return true;
     }
 
 
-    public Scorepage(String name, String composer, int n, int m, int tempo) {
+
+
+    public Scorepage(String name, String composer, int tempo) {
         this.tempo = tempo;
         setTitle("Score");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1690, 900);
         setLayout(null);
 
-        initializeElements();
-
-
+        initializeElementsAndSong();
 
         Container c = getContentPane();
 
-        ScoreBackground scoreBackground = new ScoreBackground(name, composer, n, m);
+        this.songTitle = "./sounds/" + name + ".wav";
+
+        ScoreBackground scoreBackground = new ScoreBackground(name, composer);
         scoreBackground.setLocation(0, 0);
         scoreBackground.setSize(1690, 900);
 
@@ -261,18 +302,30 @@ public class Scorepage extends JFrame {
         createSection.setLocation(0, 0);
         createSection.setSize(1690, 900);
 
+        PlaySection playSection = new PlaySection();
+        playSection.setLocation(150,15);
+        playSection.setSize(100,110);
+
         c.add(scoreBackground);
         c.add(scoreForeground);
         c.add(createSection);
+        c.add(playSection);
+
+
 
         c.setComponentZOrder(scoreBackground, c.getComponentCount() - 3);
         c.setComponentZOrder(scoreForeground, c.getComponentCount() - 2);
         c.setComponentZOrder(createSection, c.getComponentCount() - 1);
-
+        c.setComponentZOrder(playSection, 0);
+        // PlaySection playSection = new PlaySection();
+        // playSection.setBounds(0, 800, 1690, 100); // PlaySection의 위치와 크기 설정
+        // playSection.setVisible(true);
+        // c.add(playSection);
+        // c.setComponentZOrder(playSection, 0); // PlaySection을 최상단으로 배치
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new Scorepage("Drama", "IU", 4, 4, 107);
-    }
+//    public static void main(String[] args) {
+//        new Scorepage("Drama", "IU", 107);
+//    }
 }

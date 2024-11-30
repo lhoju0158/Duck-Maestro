@@ -16,18 +16,7 @@ public class SelectButton extends JToggleButton {
         Dimension size = calculateButtonSize(text);
         setPreferredSize(size);
     }
-    public SelectButton(String text, Color color){
-        super(text);
 
-        // 폰트 설정
-        setFont(new Font("Roboto", Font.PLAIN, 12));
-        setForeground(color);
-        setBackground(Color.WHITE);
-        setBorder(BorderFactory.createLineBorder(color, 1));
-
-        Dimension size = calculateButtonSize(text);
-        setPreferredSize(size);
-    }
 
     private Dimension calculateButtonSize(String text) {
         // FontMetrics로 텍스트 크기 계산

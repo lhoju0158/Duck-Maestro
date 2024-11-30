@@ -8,8 +8,8 @@ import javax.swing.border.Border;
 class Informationpage extends JFrame {
     private String title;
     private String composer;
-    private int n;
-    private int m;
+//    private int n;
+//    private int m;
     private int tempo;
 
     // 텍스트 필드를 클래스 필드로 선언
@@ -64,7 +64,7 @@ class Informationpage extends JFrame {
 
         c.setLayout(new BorderLayout());
         JPanel Informations = new JPanel();
-        Informations.setLayout(new GridLayout(5, 1, 10, 10));
+        Informations.setLayout(new GridLayout(4, 1, 10, 10));
 
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -79,17 +79,17 @@ class Informationpage extends JFrame {
         composerText = new MyTextField(10); // 필드 변수로 초기화
         p2.add(composerLabel);
         p2.add(composerText);
-
-        JPanel p3 = new JPanel();
-        p3.setLayout(new FlowLayout(FlowLayout.LEFT));
-        MyLabel timesLabel = new MyLabel("  Times: ");
-        nText = new MyTextField(5); // 필드 변수로 초기화
-        MyLabel slashLabel = new MyLabel("  /  ");
-        mText = new MyTextField(5); // 필드 변수로 초기화
-        p3.add(timesLabel);
-        p3.add(nText);
-        p3.add(slashLabel);
-        p3.add(mText);
+//
+//        JPanel p3 = new JPanel();
+//        p3.setLayout(new FlowLayout(FlowLayout.LEFT));
+//        MyLabel timesLabel = new MyLabel("  Times: ");
+//        nText = new MyTextField(5); // 필드 변수로 초기화
+//        MyLabel slashLabel = new MyLabel("  /  ");
+//        mText = new MyTextField(5); // 필드 변수로 초기화
+//        p3.add(timesLabel);
+//        p3.add(nText);
+//        p3.add(slashLabel);
+//        p3.add(mText);
 
         JPanel p4 = new JPanel();
         p4.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -135,14 +135,14 @@ class Informationpage extends JFrame {
 
         Informations.add(p1);
         Informations.add(p2);
-        Informations.add(p3);
+        // Informations.add(p3);
         Informations.add(p4);
         // Informations.add(p5);
         Informations.add(p6);
         add(Informations, BorderLayout.CENTER);
 
         JPanel North = new JPanel();
-        North.setPreferredSize(new Dimension(50, 50));
+        North.setPreferredSize(new Dimension(50, 70));
         JPanel South = new JPanel();
         South.setPreferredSize(new Dimension(50, 35));
         JPanel West = new JPanel();
@@ -156,7 +156,7 @@ class Informationpage extends JFrame {
 
         p1.setOpaque(false);
         p2.setOpaque(false);
-        p3.setOpaque(false);
+        // p3.setOpaque(false);
         p4.setOpaque(false);
         // p5.setOpaque(false);
         p6.setOpaque(false);
@@ -168,7 +168,7 @@ class Informationpage extends JFrame {
 
         c.setBackground(new Color(33, 150, 211));
 
-        setSize(650, 500);
+        setSize(650, 400);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -184,23 +184,23 @@ class Informationpage extends JFrame {
         title = (titleText.getText() == null || titleText.getText().trim().isEmpty()) ? "Untitled" : titleText.getText();
         composer = (composerText.getText() == null || composerText.getText().trim().isEmpty()) ? "Unknown" : composerText.getText();
         try {
-            n = Integer.parseInt(nText.getText());
-            m = Integer.parseInt(mText.getText());
+//            n = Integer.parseInt(nText.getText());
+//            m = Integer.parseInt(mText.getText());
             tempo = Integer.parseInt(tempoText.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please enter numeric values for Times and Tempo.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        if (n <= 1) {
-            JOptionPane.showMessageDialog(this, "Numerator must be a positive integer greater than 1.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if ((m > 0) && (m & (m - 1)) != 0) {
-            JOptionPane.showMessageDialog(this, "Denominator must be a power of 2.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+//
+//        if (n <= 1) {
+//            JOptionPane.showMessageDialog(this, "Numerator must be a positive integer greater than 1.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        if ((m > 0) && (m & (m - 1)) != 0) {
+//            JOptionPane.showMessageDialog(this, "Denominator must be a power of 2.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
 //        // out of melody range
 //        if(!melody1.getSelectedItem().equals("")&&!accidental1.getSelectedItem().equals("")){
 //            accidentalsForPrint.add((String)(melody1.getSelectedItem())+"-"+(String)(accidental1.getSelectedItem()));
@@ -230,7 +230,7 @@ class Informationpage extends JFrame {
                 this,
                 "Title: " + title +
                         "\nComposer: " + composer +
-                        "\nTimes: " + n + " / " + m +
+//                        "\nTimes: " + n + " / " + m +
                         "\nTempo: " + tempo,
                         // "\nKey Signatures: "
                         // printAccidentals(),
@@ -243,7 +243,7 @@ class Informationpage extends JFrame {
         if (choice == JOptionPane.YES_OPTION) {
             homepage.dispose();
             this.dispose();
-            new Scorepage(title, composer, n, m,tempo); // 새 페이지 열기 (NextPage 클래스 필요)
+            new Scorepage(title, composer,tempo); // 새 페이지 열기 (NextPage 클래스 필요)
             // System.out.println(accidentals);
         }
 

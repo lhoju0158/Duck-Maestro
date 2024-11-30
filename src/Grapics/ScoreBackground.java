@@ -15,13 +15,13 @@ public class ScoreBackground extends JPanel {
     private final int largeGap = Scorepage.largeGap;
 
     // private final static HashMap<Double, String> nowMelodyHashma = Scorepage.nowMelodyHashmap;
-    private int n;
-    private int m;
+//    private int n;
+//    private int m;
 
-    public ScoreBackground(String name, String composer, int n, int m) {
+    public ScoreBackground(String name, String composer) {
         setLayout(null);
-        this.n = n;
-        this.m = m;
+//        this.n = n;
+//        this.m = m;
 
         JLabel titleName = new JLabel(name);
         titleName.setFont(new Font("Lucida Handwriting", Font.PLAIN, 20));
@@ -37,12 +37,12 @@ public class ScoreBackground extends JPanel {
 
         // Label이 픽셀이 안깨짐
 
-        JLabel N = new JLabel(String.valueOf(n));
+        JLabel N = new JLabel(String.valueOf(4));
         N.setFont(new Font("Times New Roman", Font.BOLD, 24));
         N.setBounds(85, 132, 50, 30);
 
         add(N);
-        JLabel M = new JLabel(String.valueOf(m));
+        JLabel M = new JLabel(String.valueOf(4));
         M.setFont(new Font("Times New Roman", Font.BOLD, 24));
         M.setBounds(85, 149, 50, 30);
 

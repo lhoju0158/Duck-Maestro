@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.*;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
 public class ShapeGroup {
@@ -32,8 +33,6 @@ public class ShapeGroup {
         this.hook =null;
         this.attribute = null;
         // this.spot =null;
-
-
     }
 
 
@@ -67,7 +66,7 @@ public class ShapeGroup {
         this.hat =hat;
         this.curl=curl;
         this.hook =hook;
-        this.attribute = null;
+        this.attribute = new GeneralPath();
         // this.spot =spot;
     }
 
@@ -110,6 +109,4 @@ public class ShapeGroup {
     public Shape getAttribute() {
         return attribute;
     }
-
-
 }

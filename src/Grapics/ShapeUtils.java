@@ -9,47 +9,48 @@ public class ShapeUtils {
         // Point attributetPoint = new Point(basicPoint.x - 13, basicPoint.y + 1);
 
         if (modifyvalue == +0.5) {
-            Point attributetPoint = new Point(basicPoint.x - 13, basicPoint.y + 1);
+            Point attributetPoint = new Point(basicPoint.x - 13, basicPoint.y +1);
 
             double value = 2.5;
 
             // 외곽 도형 정의
-            attribute.moveTo(attributetPoint.x + 10 - value, attributetPoint.y - 14 + value);
-            attribute.lineTo(attributetPoint.x + 6 - value, attributetPoint.y - 11 + value);
-            attribute.lineTo(attributetPoint.x + 6 - value, attributetPoint.y - 16 + value);
-            attribute.lineTo(attributetPoint.x + 4 - value, attributetPoint.y - 16 + value);
-            attribute.lineTo(attributetPoint.x + 4 - value, attributetPoint.y - 10 + value);
-            attribute.lineTo(attributetPoint.x - 4 + value, attributetPoint.y - 6 + value);
-            attribute.lineTo(attributetPoint.x - 4 + value, attributetPoint.y - 11 + value);
-            attribute.lineTo(attributetPoint.x - 6 + value, attributetPoint.y - 11 + value);
-            attribute.lineTo(attributetPoint.x - 6 + value, attributetPoint.y - 5 + value);
-            attribute.lineTo(attributetPoint.x - 10 + value, attributetPoint.y - 2 + value);
-            attribute.lineTo(attributetPoint.x - 10 + value, attributetPoint.y + 2 + value);
-            attribute.lineTo(attributetPoint.x - 6 + value, attributetPoint.y - 1 + value);
-            attribute.lineTo(attributetPoint.x - 6 + value, attributetPoint.y + 6 - value);
-            attribute.lineTo(attributetPoint.x - 10 + value, attributetPoint.y + 9 - value);
-            attribute.lineTo(attributetPoint.x - 10 + value, attributetPoint.y + 13 - value);
-            attribute.lineTo(attributetPoint.x - 6 + value, attributetPoint.y + 10 - value);
-            attribute.lineTo(attributetPoint.x - 6 + value, attributetPoint.y + 15 - value);
-            attribute.lineTo(attributetPoint.x - 4 + value, attributetPoint.y + 15 - value);
-            attribute.lineTo(attributetPoint.x - 4 + value, attributetPoint.y + 9 - value);
-            attribute.lineTo(attributetPoint.x + 4 - value, attributetPoint.y + 5 - value);
-            attribute.lineTo(attributetPoint.x + 4 - value, attributetPoint.y + 10 - value);
-            attribute.lineTo(attributetPoint.x + 6 - value, attributetPoint.y + 10 - value);
-            attribute.lineTo(attributetPoint.x + 6 - value, attributetPoint.y + 4 - value);
-            attribute.lineTo(attributetPoint.x + 10 - value, attributetPoint.y + 1 - value);
-            attribute.lineTo(attributetPoint.x + 10 - value, attributetPoint.y - 3 - value);
-            attribute.lineTo(attributetPoint.x + 6 - value, attributetPoint.y - value);
-            attribute.lineTo(attributetPoint.x + 6 - value, attributetPoint.y - 7 + value);
-            attribute.lineTo(attributetPoint.x + 10 - value, attributetPoint.y - 10 + value);
-            attribute.lineTo(attributetPoint.x + 10 - value, attributetPoint.y - 13 + value);
+            attribute.moveTo(attributetPoint.x + 8, attributetPoint.y - 8);
+            attribute.lineTo(attributetPoint.x + 4 , attributetPoint.y -7);
+            attribute.lineTo(attributetPoint.x +4, attributetPoint.y -11);
+            attribute.lineTo(attributetPoint.x + 2 , attributetPoint.y -11);
+            attribute.lineTo(attributetPoint.x + 2, attributetPoint.y -6);
+            attribute.lineTo(attributetPoint.x -2 , attributetPoint.y -4);
+            attribute.lineTo(attributetPoint.x -2 , attributetPoint.y -8);
+            attribute.lineTo(attributetPoint.x -4 , attributetPoint.y -8);
+            attribute.lineTo(attributetPoint.x -4 , attributetPoint.y -3);
+            attribute.lineTo(attributetPoint.x -8 , attributetPoint.y);
+            attribute.lineTo(attributetPoint.x -8 , attributetPoint.y +3);
+            attribute.lineTo(attributetPoint.x -4, attributetPoint.y);
+            attribute.lineTo(attributetPoint.x -4 , attributetPoint.y +4);
+            attribute.lineTo(attributetPoint.x -8 , attributetPoint.y +7);
+            attribute.lineTo(attributetPoint.x -8 , attributetPoint.y +8);
+            attribute.lineTo(attributetPoint.x -4 , attributetPoint.y +7);
+            attribute.lineTo(attributetPoint.x -4 , attributetPoint.y +11);
+            attribute.lineTo(attributetPoint.x -2 , attributetPoint.y +11);
+            attribute.lineTo(attributetPoint.x -2 , attributetPoint.y +6);
+            attribute.lineTo(attributetPoint.x +2 , attributetPoint.y +4);
+            attribute.lineTo(attributetPoint.x +2 , attributetPoint.y +8);
+            attribute.lineTo(attributetPoint.x +4 , attributetPoint.y +8);
+            attribute.lineTo(attributetPoint.x +4 , attributetPoint.y +3);
+            attribute.lineTo(attributetPoint.x +8 , attributetPoint.y);
+            attribute.lineTo(attributetPoint.x +8 , attributetPoint.y -3);
+            attribute.lineTo(attributetPoint.x +4 , attributetPoint.y);
+            attribute.lineTo(attributetPoint.x +4 , attributetPoint.y-4);
+            attribute.lineTo(attributetPoint.x +8 , attributetPoint.y -7);
+            attribute.lineTo(attributetPoint.x +8 , attributetPoint.y -8);
             attribute.closePath();
 
             // 내부 도형 정의
-            attribute.moveTo(attributetPoint.x + 4 - value, attributetPoint.y - 6 + value);
-            attribute.lineTo(attributetPoint.x - 4 + value, attributetPoint.y - 2 + value);
-            attribute.lineTo(attributetPoint.x - 4 + value, attributetPoint.y + 5 - value);
-            attribute.lineTo(attributetPoint.x + 4 - value, attributetPoint.y + 1 - value);
+            attribute.moveTo(attributetPoint.x + 2, attributetPoint.y -3);
+            attribute.lineTo(attributetPoint.x - 2, attributetPoint.y -1);
+            attribute.lineTo(attributetPoint.x -2, attributetPoint.y +3);
+            attribute.lineTo(attributetPoint.x + 2, attributetPoint.y +1);
+            attribute.lineTo(attributetPoint.x + 2, attributetPoint.y -3);
             attribute.closePath();
             return attribute;
 
@@ -58,7 +59,7 @@ public class ShapeUtils {
 
 
         else if(modifyvalue == -0.5){
-            Point attributetPoint = new Point(basicPoint.x - 18, basicPoint.y - 10);
+            Point attributetPoint = new Point(basicPoint.x - 15, basicPoint.y - 10);
             attribute.moveTo(attributetPoint.x-1, attributetPoint.y-6);
             attribute.lineTo(attributetPoint.x+1, attributetPoint.y-6);
             attribute.lineTo(attributetPoint.x+1, attributetPoint.y+6);
@@ -268,7 +269,7 @@ public class ShapeUtils {
     public static Line2D createVerticalLine(Point basicPoint, boolean isUpward,double beatValue) {
         if(beatValue!=1.0){
             if (isUpward) {
-                return new Line2D.Double(basicPoint.x + 6, basicPoint.y-1, basicPoint.x + 6, basicPoint.y - 30);
+                return new Line2D.Double(basicPoint.x +5, basicPoint.y-1, basicPoint.x + 6, basicPoint.y - 30);
             } else {
                 return new Line2D.Double(basicPoint.x - 6, basicPoint.y+2, basicPoint.x - 6, basicPoint.y + 31);
             }
