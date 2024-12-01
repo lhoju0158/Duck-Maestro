@@ -1,10 +1,9 @@
 package Grapics;
 
-import pages.Scorepage;
+import Pages.Scorepage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 public class ScoreBackground extends JPanel {
     private final Point s1Start = Scorepage.s1Start;
@@ -14,15 +13,8 @@ public class ScoreBackground extends JPanel {
     private final int smallGap = Scorepage.smallGap;
     private final int largeGap = Scorepage.largeGap;
 
-    // private final static HashMap<Double, String> nowMelodyHashma = Scorepage.nowMelodyHashmap;
-//    private int n;
-//    private int m;
-
     public ScoreBackground(String name, String composer) {
         setLayout(null);
-//        this.n = n;
-//        this.m = m;
-
         JLabel titleName = new JLabel(name);
         titleName.setFont(new Font("Lucida Handwriting", Font.PLAIN, 20));
         titleName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -35,8 +27,6 @@ public class ScoreBackground extends JPanel {
         composerName.setBounds(670, 75, 120, 15);
         add(composerName);
 
-        // Label이 픽셀이 안깨짐
-
         JLabel N = new JLabel(String.valueOf(4));
         N.setFont(new Font("Times New Roman", Font.BOLD, 24));
         N.setBounds(85, 132, 50, 30);
@@ -48,25 +38,18 @@ public class ScoreBackground extends JPanel {
 
         add(M);
         setOpaque(false);
-
-        // setOpaque(true); // Prevent unnecessary background repainting
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
-//            g.setFont(new Font("Lucida Handwriting", Font.PLAIN, 20));
-//            g.drawString(name,342,70);
+
         g.drawLine(332, 70, 572, 70);
         g.drawLine(670, 95, 790, 95);
 
 
-        // draw measure
-        // Font measureFont = new Font("Times New Roman", Font.BOLD, 24);
         g.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        // g.drawString(String.valueOf(n), 74, 136);
-        //g.drawString(String.valueOf(m), 74, 154);
 
 
         Point tempS1Start = new Point(s1Start);
@@ -74,8 +57,8 @@ public class ScoreBackground extends JPanel {
         Point tempS2Start = new Point(s2Start);
         Point tempS2End = new Point(s2End);
         ImageIcon High = new ImageIcon("./images/high.png");
-        Image highImage = High.getImage(); // Convert ImageIcon to Image
-        JLabel highLabel = new JLabel(High); // 이거 나중에 JLabel로 고치지 => Image랑
+        Image highImage = High.getImage();
+        JLabel highLabel = new JLabel(High);
 
 
         for (int i = 0; i < 8; i++) {
@@ -87,7 +70,6 @@ public class ScoreBackground extends JPanel {
                 if (j != 4) {
 
                     int measureGap = (tempS1End.x - tempS1Start.x) / 4;
-                    // System.out.println("measureGap = "+measureGap);
                     if(i==0){
                         for (int s = 1; s < 4; s++) {
                             g.drawLine(
@@ -97,16 +79,12 @@ public class ScoreBackground extends JPanel {
                                     tempS1Start.y + (j + 1) * smallGap
 
                             );
-                            // System.out.println("measureGap = "+measureGap);
-
                             g.drawLine(
                                     tempS2Start.x-2+ (measureGap * s),
                                     tempS2Start.y + j * smallGap,
                                     tempS2Start.x-2 + (measureGap * s),
                                     tempS2Start.y + (j + 1) * smallGap
                             );
-                            // System.out.println("measureGap = "+measureGap);
-
                         }
                     }
                     else{
@@ -118,7 +96,6 @@ public class ScoreBackground extends JPanel {
                                     tempS1Start.y + (j + 1) * smallGap
 
                             );
-                            // System.out.println("measureGap = "+measureGap);
 
                             g.drawLine(
                                     tempS2Start.x -2+ (measureGap * s),
@@ -126,7 +103,6 @@ public class ScoreBackground extends JPanel {
                                     tempS2Start.x-2 + (measureGap * s),
                                     tempS2Start.y + (j + 1) * smallGap
                             );
-                            // System.out.println("measureGap = "+measureGap);
 
                         }
                     }
@@ -139,11 +115,9 @@ public class ScoreBackground extends JPanel {
             tempS2Start.y += (4 * smallGap + largeGap);
             tempS2End.y += (4 * smallGap + largeGap);
         }
-        // for first measure
         Point tempS1 = new Point(s1Start);
         Point tempS2 = new Point(s2Start);
 
-        // draw first line
         for (int j = 0; j < 5; j++) {
             g.drawLine(tempS1.x - 49, tempS1.y + j * smallGap, tempS1.x, tempS1.y + j * smallGap);
             g.drawLine(tempS1.x +716, tempS1.y + j * smallGap, tempS1.x+721, tempS1.y + j * smallGap);
@@ -153,7 +127,6 @@ public class ScoreBackground extends JPanel {
         g.drawImage(highImage, tempS2.x - 36, tempS2.y - 18, 25, 65, this);
         tempS1.y += (4 * smallGap + largeGap);
         tempS2.y += (4 * smallGap + largeGap);
-        // draw remain lines
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 5; j++) {
@@ -167,12 +140,5 @@ public class ScoreBackground extends JPanel {
             tempS1.y += (4 * smallGap + largeGap);
             tempS2.y += (4 * smallGap + largeGap);
         }
-        // test code, erase later
-//        g.drawLine(94, s1Start.y, s1Start.x, s1Start.y + 32);
-//        g.drawLine(904, s2Start.y, s2Start.x, s2Start.y + 32);
-//        g.drawLine(810, s1End.y, s1End.x, s1End.y + 32);
-//        g.drawLine(1620, s2End.y, s2End.x, s2End.y + 32);
-        // System.out.println(s2End); //1620
-        // System.out.println(s1Start);
     }
 }

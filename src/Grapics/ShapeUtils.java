@@ -2,18 +2,18 @@ package Grapics;
 
 import java.awt.*;
 import java.awt.geom.*;
-import javax.swing.*;
+
 public class ShapeUtils {
+
+    // Attributes
     public static GeneralPath createAttribute(Point basicPoint, double modifyvalue) {
-        GeneralPath attribute = new GeneralPath(GeneralPath.WIND_EVEN_ODD); // WIND_EVEN_ODD 규칙 설정
-        // Point attributetPoint = new Point(basicPoint.x - 13, basicPoint.y + 1);
+        GeneralPath attribute = new GeneralPath(GeneralPath.WIND_EVEN_ODD); // WIND_EVEN_ODD 규칙 설정 // 링크 정리
 
         if (modifyvalue == +0.5) {
+            // sharp
             Point attributetPoint = new Point(basicPoint.x - 13, basicPoint.y +1);
 
-            double value = 2.5;
-
-            // 외곽 도형 정의
+            // outer
             attribute.moveTo(attributetPoint.x + 8, attributetPoint.y - 8);
             attribute.lineTo(attributetPoint.x + 4 , attributetPoint.y -7);
             attribute.lineTo(attributetPoint.x +4, attributetPoint.y -11);
@@ -45,7 +45,7 @@ public class ShapeUtils {
             attribute.lineTo(attributetPoint.x +8 , attributetPoint.y -8);
             attribute.closePath();
 
-            // 내부 도형 정의
+            // inner
             attribute.moveTo(attributetPoint.x + 2, attributetPoint.y -3);
             attribute.lineTo(attributetPoint.x - 2, attributetPoint.y -1);
             attribute.lineTo(attributetPoint.x -2, attributetPoint.y +3);
@@ -59,6 +59,8 @@ public class ShapeUtils {
 
 
         else if(modifyvalue == -0.5){
+            // flat
+            // outer
             Point attributetPoint = new Point(basicPoint.x - 15, basicPoint.y - 10);
             attribute.moveTo(attributetPoint.x-1, attributetPoint.y-6);
             attribute.lineTo(attributetPoint.x+1, attributetPoint.y-6);
@@ -71,6 +73,7 @@ public class ShapeUtils {
             attribute.lineTo(attributetPoint.x-1, attributetPoint.y-3);
             attribute.closePath();
 
+            // inner
             attribute.moveTo(attributetPoint.x+1, attributetPoint.y+8);
             attribute.curveTo(attributetPoint.x+1,attributetPoint.y+8,attributetPoint.x+4,attributetPoint.y+6,attributetPoint.x+6,attributetPoint.y+6);
             attribute.curveTo(attributetPoint.x+6,attributetPoint.y+6,attributetPoint.x+5,attributetPoint.y+7,attributetPoint.x+4,attributetPoint.y+11);
@@ -87,14 +90,11 @@ public class ShapeUtils {
         }
     }
 
-    /***
-     *  모자 생성
-     */
-
+    // Hat
     public static GeneralPath createHat( Point basicPoint, int[] hatInfomation, boolean spotInformation) {
         GeneralPath hat = new GeneralPath();
         Point hatPoint = new Point(basicPoint.x,basicPoint.y-44);
-        // GeneralPath 생성
+
         if (hatInfomation[0] == 1) {
             if (hatInfomation[1] == 0) {
                 hat.moveTo(hatPoint.x - 12, hatPoint.y+1);
@@ -120,27 +120,23 @@ public class ShapeUtils {
                 hat.closePath();
 
                 if(spotInformation){
-                    // Spot 추가
                     double spotRadius = 2;
                     double centerX = hatPoint.x + 13;
                     double centerY = hatPoint.y + 3;
 
-                    // Spot의 곡선
-                    hat.moveTo(centerX, centerY - spotRadius); // 위쪽 시작
+                    hat.moveTo(centerX, centerY - spotRadius);
                     hat.curveTo(
-                            centerX + spotRadius, centerY - spotRadius, // 오른쪽 상단
-                            centerX + spotRadius, centerY + spotRadius, // 오른쪽 하단
-                            centerX, centerY + spotRadius // 아래쪽
+                            centerX + spotRadius, centerY - spotRadius,
+                            centerX + spotRadius, centerY + spotRadius,
+                            centerX, centerY + spotRadius
                     );
                     hat.curveTo(
-                            centerX - spotRadius, centerY + spotRadius, // 왼쪽 하단
-                            centerX - spotRadius, centerY - spotRadius, // 왼쪽 상단
-                            centerX, centerY - spotRadius // 위쪽 시작점으로
+                            centerX - spotRadius, centerY + spotRadius,
+                            centerX - spotRadius, centerY - spotRadius,
+                            centerX, centerY - spotRadius
                     );
                     hat.closePath();
                 }
-
-
 
             }
             return hat;
@@ -148,50 +144,44 @@ public class ShapeUtils {
         return null;
     }
 
-
-    /***
-     *  곡선 생성
-     */
+    // Curl
 
     public static GeneralPath createCurl(Point basicPoint,boolean curlInformation,boolean spotInformation) {
-        // curlInformaion => 유무
         GeneralPath curl = new GeneralPath();
         if(curlInformation){
             Point hatPoint = new Point(basicPoint.x, basicPoint.y - 46 );
 
-            curl.moveTo(hatPoint.x+3, hatPoint.y-1); // 세로선 끝
+            curl.moveTo(hatPoint.x+3, hatPoint.y-1);
             curl.lineTo(hatPoint.x+7,hatPoint.y+5);
-            curl.curveTo(hatPoint.x+7,hatPoint.y+5,hatPoint.x+8,hatPoint.y+6,hatPoint.x+7,hatPoint.y+7); // 부드러운 곡선
-            curl.curveTo(hatPoint.x+7,hatPoint.y+7,hatPoint.x+6,hatPoint.y+8,hatPoint.x+5,hatPoint.y+10); // 부드러운 곡선
-            curl.curveTo(hatPoint.x+5,hatPoint.y+10,hatPoint.x+6,hatPoint.y+12,hatPoint.x+8,hatPoint.y+15); // 부드러운 곡선
-            curl.curveTo(hatPoint.x+8,hatPoint.y+15,hatPoint.x+5,hatPoint.y+15,hatPoint.x+4,hatPoint.y+16); // 부드러운 곡선
-            curl.curveTo(hatPoint.x+4,hatPoint.y+16,hatPoint.x+4,hatPoint.y+18,hatPoint.x+6,hatPoint.y+22); // 부드러운 곡선
-            curl.curveTo(hatPoint.x+6,hatPoint.y+22,hatPoint.x+2,hatPoint.y+19,hatPoint.x+1,hatPoint.y+15); // 부드러운 곡선
-            curl.curveTo(hatPoint.x+1,hatPoint.y+15,hatPoint.x+3,hatPoint.y+13,hatPoint.x+6,hatPoint.y+14); // 부드러운 곡선4
+            curl.curveTo(hatPoint.x+7,hatPoint.y+5,hatPoint.x+8,hatPoint.y+6,hatPoint.x+7,hatPoint.y+7);
+            curl.curveTo(hatPoint.x+7,hatPoint.y+7,hatPoint.x+6,hatPoint.y+8,hatPoint.x+5,hatPoint.y+10);
+            curl.curveTo(hatPoint.x+5,hatPoint.y+10,hatPoint.x+6,hatPoint.y+12,hatPoint.x+8,hatPoint.y+15);
+            curl.curveTo(hatPoint.x+8,hatPoint.y+15,hatPoint.x+5,hatPoint.y+15,hatPoint.x+4,hatPoint.y+16);
+            curl.curveTo(hatPoint.x+4,hatPoint.y+16,hatPoint.x+4,hatPoint.y+18,hatPoint.x+6,hatPoint.y+22);
+            curl.curveTo(hatPoint.x+6,hatPoint.y+22,hatPoint.x+2,hatPoint.y+19,hatPoint.x+1,hatPoint.y+15);
+            curl.curveTo(hatPoint.x+1,hatPoint.y+15,hatPoint.x+3,hatPoint.y+13,hatPoint.x+6,hatPoint.y+14);
             curl.lineTo(hatPoint.x+1,hatPoint.y+8);
 
-            curl.curveTo(hatPoint.x+1,hatPoint.y+8,hatPoint.x+4,hatPoint.y+6,hatPoint.x+5,hatPoint.y+4); // 부드러운 곡선
+            curl.curveTo(hatPoint.x+1,hatPoint.y+8,hatPoint.x+4,hatPoint.y+6,hatPoint.x+5,hatPoint.y+4);
             curl.lineTo(hatPoint.x+3,hatPoint.y-1);
 
             curl.closePath();
 
             if(spotInformation){
-                // Spot 추가
                 double spotRadius = 2;
                 double centerX = hatPoint.x + 12;
                 double centerY = hatPoint.y + 5;
 
-                // Spot의 곡선
-                curl.moveTo(centerX, centerY - spotRadius); // 위쪽 시작
+                curl.moveTo(centerX, centerY - spotRadius);
                 curl.curveTo(
-                        centerX + spotRadius, centerY - spotRadius, // 오른쪽 상단
-                        centerX + spotRadius, centerY + spotRadius, // 오른쪽 하단
-                        centerX, centerY + spotRadius // 아래쪽
+                        centerX + spotRadius, centerY - spotRadius,
+                        centerX + spotRadius, centerY + spotRadius,
+                        centerX, centerY + spotRadius
                 );
                 curl.curveTo(
-                        centerX - spotRadius, centerY + spotRadius, // 왼쪽 하단
-                        centerX - spotRadius, centerY - spotRadius, // 왼쪽 상단
-                        centerX, centerY - spotRadius // 위쪽 시작점으로
+                        centerX - spotRadius, centerY + spotRadius,
+                        centerX - spotRadius, centerY - spotRadius,
+                        centerX, centerY - spotRadius
                 );
                 curl.closePath();
             }
@@ -201,49 +191,45 @@ public class ShapeUtils {
         return null;
     }
 
-    /***
-     *  갈고리 생성
-     */
+    // hook
 
     public static GeneralPath createHook(Point basicPoint, int[] hookInformation,boolean spotInformation) {
         GeneralPath hook = new GeneralPath();
         if(hookInformation[0]==1){
-            Point hookPoint = new Point(basicPoint.x, basicPoint.y-48);
-            hook.moveTo(hookPoint.x+11, hookPoint.y+3); // 세로선 끝
+            Point hookPoint = new Point(basicPoint.x+2, basicPoint.y-48);
+            hook.moveTo(hookPoint.x+11, hookPoint.y+3);
             hook.lineTo(hookPoint.x+13,hookPoint.y+3);
             hook.lineTo(hookPoint.x+7,hookPoint.y+25);
             hook.lineTo(hookPoint.x+5,hookPoint.y+25);
-            hook.moveTo(hookPoint.x+11, hookPoint.y+3); // 세로선 끝
+            hook.moveTo(hookPoint.x+11, hookPoint.y+3);
             hook.closePath();
 
             for (int i = 0; i < hookInformation[1]; i++) {
                 Point hookPoint1 = new Point(hookPoint.x-i*2,hookPoint.y+i*7);
-                hook.moveTo(hookPoint1.x+12, hookPoint1.y+12); // 세로선 끝
-                hook.curveTo(hookPoint1.x+12, hookPoint1.y+12, hookPoint1.x + 9, hookPoint1.y + 7, hookPoint1.x + 6, hookPoint1.y + 8); // 부드러운 곡선
-                hook.curveTo(hookPoint1.x+6, hookPoint1.y+8, hookPoint1.x + 7, hookPoint1.y + 5, hookPoint1.x + 6, hookPoint1.y + 4); // 부드러운 곡선
-                hook.curveTo(hookPoint1.x+6, hookPoint1.y+4, hookPoint1.x + 4, hookPoint1.y + 3, hookPoint1.x + 2, hookPoint1.y + 5); // 부드러운 곡선
-                hook.curveTo(hookPoint1.x+2, hookPoint1.y+5, hookPoint1.x +2, hookPoint1.y + 6, hookPoint1.x + 3, hookPoint1.y + 8); // 부드러운 곡선
-                hook.curveTo(hookPoint1.x+3, hookPoint1.y+9, hookPoint1.x +6, hookPoint1.y + 10, hookPoint1.x + 9, hookPoint1.y + 9); // 부드러운 곡선
+                hook.moveTo(hookPoint1.x+12, hookPoint1.y+12);
+                hook.curveTo(hookPoint1.x+12, hookPoint1.y+12, hookPoint1.x + 9, hookPoint1.y + 7, hookPoint1.x + 6, hookPoint1.y + 8);
+                hook.curveTo(hookPoint1.x+6, hookPoint1.y+8, hookPoint1.x + 7, hookPoint1.y + 5, hookPoint1.x + 6, hookPoint1.y + 4);
+                hook.curveTo(hookPoint1.x+6, hookPoint1.y+4, hookPoint1.x + 4, hookPoint1.y + 3, hookPoint1.x + 2, hookPoint1.y + 5);
+                hook.curveTo(hookPoint1.x+2, hookPoint1.y+5, hookPoint1.x +2, hookPoint1.y + 6, hookPoint1.x + 3, hookPoint1.y + 8);
+                hook.curveTo(hookPoint1.x+3, hookPoint1.y+9, hookPoint1.x +6, hookPoint1.y + 10, hookPoint1.x + 9, hookPoint1.y + 9);
                 hook.lineTo(hookPoint1.x+12,hookPoint1.y+12);
                 hook.closePath();
             }
             if(spotInformation){
-                // Spot 추가
                 double spotRadius = 2;
                 double centerX = hookPoint.x + 15;
                 double centerY = hookPoint.y + 7;
 
-                // Spot의 곡선
-                hook.moveTo(centerX, centerY - spotRadius); // 위쪽 시작
+                hook.moveTo(centerX, centerY - spotRadius);
                 hook.curveTo(
-                        centerX + spotRadius, centerY - spotRadius, // 오른쪽 상단
-                        centerX + spotRadius, centerY + spotRadius, // 오른쪽 하단
-                        centerX, centerY + spotRadius // 아래쪽
+                        centerX + spotRadius, centerY - spotRadius,
+                        centerX + spotRadius, centerY + spotRadius,
+                        centerX, centerY + spotRadius
                 );
                 hook.curveTo(
-                        centerX - spotRadius, centerY + spotRadius, // 왼쪽 하단
-                        centerX - spotRadius, centerY - spotRadius, // 왼쪽 상단
-                        centerX, centerY - spotRadius // 위쪽 시작점으로
+                        centerX - spotRadius, centerY + spotRadius,
+                        centerX - spotRadius, centerY - spotRadius,
+                        centerX, centerY - spotRadius
                 );
                 hook.closePath();
             }
@@ -253,9 +239,7 @@ public class ShapeUtils {
     }
 
 
-    /***
-     *  타원 생성
-     */
+    // circle - 1
 
     public static Shape applyRotation(Ellipse2D ellipse, Point basicPoint) {
         AffineTransform rotateTransform = AffineTransform.getRotateInstance(
@@ -263,9 +247,21 @@ public class ShapeUtils {
         return rotateTransform.createTransformedShape(ellipse);
     }
 
-    /**
-     * 세로선 생성
-     */
+    // circle - 2
+    public static void handleEllipseAndSpot(Graphics2D g2, Shape rotatedEllipse, boolean isFilled, boolean spot, Point basicPoint) {
+        if (isFilled) {
+            g2.fill(rotatedEllipse);
+        } else {
+            g2.draw(rotatedEllipse);
+        }
+
+        if (spot) {
+            g2.fillOval(basicPoint.x + 10, basicPoint.y - 2, 3, 3);
+        }
+    }
+
+    // vertical
+
     public static Line2D createVerticalLine(Point basicPoint, boolean isUpward,double beatValue) {
         if(beatValue!=1.0){
             if (isUpward) {
@@ -277,9 +273,7 @@ public class ShapeUtils {
         return null;
     }
 
-    /**
-     * 가로선 생성
-     */
+    // horizontal
     public static Line2D[] createHorizontalLines(Point basicPoint, int[] lineInformation) {
         int numLines = lineInformation[0];
         int offset = lineInformation[1];
@@ -295,17 +289,15 @@ public class ShapeUtils {
         return horizontalLines;
     }
 
-    /**
-     * 꼬리 생성
-     */
+    // tail
     public static GeneralPath createTail(Point basicPoint, int tailNum, boolean isUpward) {
         GeneralPath tail = new GeneralPath();
         if(isUpward){
             for (int i = 0; i < tailNum; i++) {
                 Point flagPoint = new Point(basicPoint.x + 6, basicPoint.y - 30 + i * 9);
 
-                tail.moveTo(flagPoint.x, flagPoint.y); // 세로선 끝
-                tail.curveTo(flagPoint.x, flagPoint.y, flagPoint.x + 2, flagPoint.y + 4, flagPoint.x + 6, flagPoint.y + 6); // 부드러운 곡선
+                tail.moveTo(flagPoint.x, flagPoint.y);
+                tail.curveTo(flagPoint.x, flagPoint.y, flagPoint.x + 2, flagPoint.y + 4, flagPoint.x + 6, flagPoint.y + 6);
                 tail.curveTo(flagPoint.x + 6, flagPoint.y + 6, flagPoint.x + 12, flagPoint.y + 12, flagPoint.x + 6, flagPoint.y + 20);
                 tail.curveTo(flagPoint.x + 6, flagPoint.y + 20, flagPoint.x + 9, flagPoint.y + 12, flagPoint.x + 4, flagPoint.y + 10);
                 tail.curveTo(flagPoint.x + 4, flagPoint.y + 10, flagPoint.x + 2, flagPoint.y + 9, flagPoint.x, flagPoint.y + 8);
@@ -316,8 +308,8 @@ public class ShapeUtils {
             for (int i = 0; i < tailNum; i++) {
                 Point flagPoint = new Point(basicPoint.x - 6, basicPoint.y + 31 - i * 9);
 
-                tail.moveTo(flagPoint.x, flagPoint.y); // 세로선 끝
-                tail.curveTo(flagPoint.x, flagPoint.y, flagPoint.x + 2, flagPoint.y - 4, flagPoint.x + 6, flagPoint.y - 6); // 부드러운 곡선
+                tail.moveTo(flagPoint.x, flagPoint.y);
+                tail.curveTo(flagPoint.x, flagPoint.y, flagPoint.x + 2, flagPoint.y - 4, flagPoint.x + 6, flagPoint.y - 6);
                 tail.curveTo(flagPoint.x + 6, flagPoint.y - 6, flagPoint.x + 12, flagPoint.y - 12, flagPoint.x + 6, flagPoint.y - 20);
                 tail.curveTo(flagPoint.x + 6, flagPoint.y - 20, flagPoint.x + 9, flagPoint.y - 12, flagPoint.x + 4, flagPoint.y - 10);
                 tail.curveTo(flagPoint.x + 4, flagPoint.y - 10, flagPoint.x + 2, flagPoint.y - 9, flagPoint.x, flagPoint.y - 8);
@@ -326,19 +318,6 @@ public class ShapeUtils {
 
         return tail;
     }
-    /**
-     * 타원의 채우기 및 점 추가
-     */
-    public static void handleEllipseAndSpot(Graphics2D g2, Shape rotatedEllipse, boolean isFilled, boolean spot, Point basicPoint) {
-        if (isFilled) {
-            g2.fill(rotatedEllipse); // 타원 내부를 채우기
-        } else {
-            g2.draw(rotatedEllipse); // 타원 외곽만 그리기
-        }
 
-        if (spot) {
-            g2.fillOval(basicPoint.x + 10, basicPoint.y - 2, 3, 3); // 점 추가
-        }
-    }
 
 }
