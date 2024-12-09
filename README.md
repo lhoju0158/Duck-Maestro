@@ -34,6 +34,7 @@ This project is for a music composition and sheet music creation app that genera
     </tr>
   </table>
 </div>
+
 * Play Section
 
 <div style="display: flex; justify-content: center;">
