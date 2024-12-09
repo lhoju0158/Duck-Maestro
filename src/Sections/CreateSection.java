@@ -1,7 +1,7 @@
 package Sections;
 
-import Buttons.SelectButton;
-import Buttons.ControlButton;
+import Customs.SelectButton;
+import Customs.ControlButton;
 import Pages.Scorepage;
 
 import javax.swing.*;
@@ -224,7 +224,7 @@ class CreateSection1 extends JPanel {
 class BeatListener implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
-        JToggleButton button = (JToggleButton) e.getSource(); //https://blog.naver.com/kittenjun/10044445481
+        JToggleButton button = (JToggleButton) e.getSource();
         if (e.getStateChange() == ItemEvent.SELECTED) {
             CreateSection1.insertBeat = Double.parseDouble(button.getText()) / 4;
             if(CreateSection1.insertMelody==16.0){

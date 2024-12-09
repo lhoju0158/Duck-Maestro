@@ -1,6 +1,6 @@
 package Pages;
-import Labels.MyLabel;
-import Labels.MyTextField;
+import Customs.MyLabel;
+import Customs.MyTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -122,7 +122,7 @@ class Informationpage extends JFrame {
         );
 
         if (result == JOptionPane.YES_OPTION) {
-            homepage.dispose(); //https://msource.tistory.com/3
+            homepage.dispose();
             this.dispose();
             new Scorepage(title, composer, tempo);
         }

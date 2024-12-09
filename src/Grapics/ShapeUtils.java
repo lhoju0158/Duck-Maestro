@@ -7,7 +7,7 @@ public class ShapeUtils {
 
     // Attributes
     public static GeneralPath createAttribute(Point basicPoint, double modifyvalue) {
-        GeneralPath attribute = new GeneralPath(GeneralPath.WIND_EVEN_ODD); // WIND_EVEN_ODD 규칙 설정 // 링크 정리
+        GeneralPath attribute = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
 
         if (modifyvalue == +0.5) {
             // sharp
@@ -60,8 +60,9 @@ public class ShapeUtils {
 
         else if(modifyvalue == -0.5){
             // flat
-            // outer
             Point attributetPoint = new Point(basicPoint.x - 15, basicPoint.y - 10);
+
+            // outer
             attribute.moveTo(attributetPoint.x-1, attributetPoint.y-6);
             attribute.lineTo(attributetPoint.x+1, attributetPoint.y-6);
             attribute.lineTo(attributetPoint.x+1, attributetPoint.y+6);
@@ -233,9 +234,9 @@ public class ShapeUtils {
                 );
                 hook.closePath();
             }
-
+            return hook;
         }
-        return hook;
+        return null;
     }
 
 

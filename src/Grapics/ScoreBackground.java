@@ -14,28 +14,32 @@ public class ScoreBackground extends JPanel {
     private final int largeGap = Scorepage.largeGap;
 
     public ScoreBackground(String name, String composer) {
+        // set panel
         setLayout(null);
+
+        // ScoreBackground components - 1) titleName
         JLabel titleName = new JLabel(name);
         titleName.setFont(new Font("Lucida Handwriting", Font.PLAIN, 20));
         titleName.setHorizontalAlignment(SwingConstants.CENTER);
         titleName.setBounds(332, 40, 240, 20);
-        add(titleName);
 
+        // ScoreBackground components - 2) composerName
         JLabel composerName = new JLabel(composer);
         composerName.setFont(new Font("Lucida Handwriting", Font.PLAIN, 15));
         composerName.setHorizontalAlignment(SwingConstants.CENTER);
         composerName.setBounds(670, 75, 120, 15);
-        add(composerName);
 
+        // ScoreBackground components - 3) N and M
         JLabel N = new JLabel(String.valueOf(4));
         N.setFont(new Font("Times New Roman", Font.BOLD, 24));
         N.setBounds(85, 132, 50, 30);
-
-        add(N);
         JLabel M = new JLabel(String.valueOf(4));
         M.setFont(new Font("Times New Roman", Font.BOLD, 24));
         M.setBounds(85, 149, 50, 30);
 
+        add(titleName);
+        add(composerName);
+        add(N);
         add(M);
         setOpaque(false);
     }
@@ -44,13 +48,10 @@ public class ScoreBackground extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
-
         g.drawLine(332, 70, 572, 70);
         g.drawLine(670, 95, 790, 95);
 
-
         g.setFont(new Font("Times New Roman", Font.BOLD, 24));
-
 
         Point tempS1Start = new Point(s1Start);
         Point tempS1End = new Point(s1End);
@@ -58,7 +59,6 @@ public class ScoreBackground extends JPanel {
         Point tempS2End = new Point(s2End);
         ImageIcon High = new ImageIcon("./images/high.png");
         Image highImage = High.getImage();
-        JLabel highLabel = new JLabel(High);
 
 
         for (int i = 0; i < 8; i++) {

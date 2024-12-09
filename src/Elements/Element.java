@@ -28,11 +28,10 @@ public class Element {
         this.melodyForPlay = melodyForPlay;
         this.melodyForDraw = melodyForDraw[0];
         this.modifyValue = melodyForDraw[1];
-
-
         double tempo = Scorepage.tempo;
         this.soundLength = ((60)/tempo) *4 *beat;
         this.StartPosition = startPosition;
+
         setPositions();
 
         if(melodyForPlay==16.0){
@@ -43,7 +42,6 @@ public class Element {
             // melody
             setShapeGroupForMelody();
         }
-        // set Tempo
         setSoundForPlay();
     }
     public ShapeGroup getShapeGroup(){
@@ -65,7 +63,6 @@ public class Element {
         this.LastPosition = new Point((int)(this.StartPosition.x +(10+11*(16*beat-1))),this.StartPosition.y);
         if(this.melodyForPlay==16.0){
             this.basicPosition = new Point((int)((this.StartPosition.x+this.LastPosition.x)*0.5)-7,this.StartPosition.y);
-
         }
         else{
             if(this.beat<=0.25){
@@ -99,7 +96,7 @@ public class Element {
             Point temp = new Point(this.basicPosition);
             this.basicPosition = new Point(temp.x+5,temp.y);
         }
-        Ellipse2D ellipse = new Ellipse2D.Double(this.basicPosition.x - 6.5, this.basicPosition.y - ((Scorepage.smallGap / 2) - 0.5), 13, Scorepage.smallGap - 1); // http://www.nicklib.com/library/javaapi/java/awt/geom/Ellipse2D.Double.html
+        Ellipse2D ellipse = new Ellipse2D.Double(this.basicPosition.x - 6.5, this.basicPosition.y - ((Scorepage.smallGap / 2) - 0.5), 13, Scorepage.smallGap - 1);
         Shape rotatedEllipse = applyRotation(ellipse, this.basicPosition); //
 
         Line2D verticalLine = createVerticalLine(this.basicPosition, isUpward,this.beat);
@@ -114,12 +111,12 @@ public class Element {
     }
     public void setShapeGroupForRest(){
         RestAttributes restAttributes = restSetting.get(beat);
-        int[] hatInfomation = restAttributes.getHat();
+        int[] hatInformation = restAttributes.getHat();
         boolean curlInformation = restAttributes.getCurl();
         int[] hookInformation = restAttributes.getHook();
         boolean spotInformation = restAttributes.getSpot();
 
-        GeneralPath hat = createHat(this.basicPosition,hatInfomation,spotInformation);
+        GeneralPath hat = createHat(this.basicPosition,hatInformation,spotInformation);
         GeneralPath curl = createCurl(this.basicPosition,curlInformation,spotInformation);
         GeneralPath hook = createHook(this.basicPosition,hookInformation,spotInformation);
 

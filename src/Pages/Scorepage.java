@@ -132,7 +132,7 @@ public class Scorepage extends JFrame {
         c.add(scoreForeground);
         c.add(createSection);
         c.add(playSection);
-        c.setComponentZOrder(scoreBackground, 1); // https://blog.naver.com/celestialorb/40011002132
+        c.setComponentZOrder(scoreBackground, 1);
         c.setComponentZOrder(scoreForeground, 2);
         c.setComponentZOrder(createSection, 3);
         c.setComponentZOrder(playSection, 0);
@@ -251,10 +251,5 @@ public class Scorepage extends JFrame {
         insertElement = new Element(insertBeat, insertMelodyForPlay, new Point(s1Start.x  +11, (s1Start.y + smallGap * 6 + (int) (smallGap / 2))), insertMelodyForDraw);
         elements.get(0).add(insertElement);
         return true;
-    }
-
-    // 여기 나중에 지우기
-    public static void main(String[] args) {
-        new Scorepage("Drama", "IU", 107);
     }
 }

@@ -4,6 +4,7 @@ import Elements.Element;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,25 +43,27 @@ public class PlaySection extends JPanel {
         p1.setLayout(new GridLayout(1,3,5,5));
         Playbuttons[0] = new JButton("▶");
         Playbuttons[1] = new JButton("■");
-        Playbuttons[2] = new JButton("Save");
+        Playbuttons[2] = new JButton("SAVE");
 
         for (int i = 0; i < Playbuttons.length; i++) {
             p1.add(Playbuttons[i]);
             Playbuttons[i].addItemListener(new BeatListener());
             Playbuttons[i].setFont(new Font("Roboto", Font.BOLD, 10));
             Playbuttons[i].setBackground(Color.WHITE);
-            Playbuttons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            Playbuttons[i].setBorder(new LineBorder(Color.BLACK, 1));
         }
+        // playButton onClickHandler
         Playbuttons[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (mergeSoundsForPlay("./sounds/resultSong.wav")) {
-                    playElements("./sounds/resultSong.wav");
+                    playSound("./sounds/resultSong.wav");
                     timer.start();
                 }
             }
         });
 
+        // stopButton onClickHandler
         Playbuttons[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,7 +77,7 @@ public class PlaySection extends JPanel {
             }
         });
 
-
+        // saveButton onClickHandler
         Playbuttons[2].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,12 +98,12 @@ public class PlaySection extends JPanel {
                             while ((bytesRead = in.read(buffer)) != -1) {
                                 out.write(buffer, 0, bytesRead);
                             }
-                            JOptionPane.showMessageDialog(null, "File saved at: " + dst.getAbsolutePath(), "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Enjoy your melody!", "Save!", JOptionPane.INFORMATION_MESSAGE);
                             in.close();
                             out.close();
 
-                        } catch (IOException ex) {
-                            JOptionPane.showMessageDialog(null, "Error saving file: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
                         }
                     }
                 } else {
@@ -108,16 +111,15 @@ public class PlaySection extends JPanel {
                 }
             }
         });
+
+        // set panel
         add(p1,BorderLayout.CENTER);
         add(rotatingLP,BorderLayout.NORTH);
-
         setOpaque(false);
         setVisible(true);
     }
 
     public ImageIcon getRotatedImage(ImageIcon icon, double angle) {
-        // https://www.delftstack.com/ko/howto/java/java-rotate-image/
-
         int w = icon.getIconWidth();
         int h = icon.getIconHeight();
         BufferedImage rotatedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -196,7 +198,7 @@ public class PlaySection extends JPanel {
     }
 
 
-    public static void playElements(String mergedFilePath) {
+    public static void playSound(String mergedFilePath) {
         try {
             currentClip = AudioSystem.getClip();
             File audioFile = new File(mergedFilePath);

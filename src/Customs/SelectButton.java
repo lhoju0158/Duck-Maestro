@@ -1,4 +1,4 @@
-package Buttons;
+package Customs;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,15 +13,15 @@ public class SelectButton extends JToggleButton {
         setBorder(new LineBorder(Color.BLACK, 1));
 
         Dimension size = calculateButtonSize(text);
-        setPreferredSize(size);// https://m.blog.naver.com/fkdltmxlr3/221720415238
+        setPreferredSize(size);
     }
 
 
     private Dimension calculateButtonSize(String text) {
         Font font = new Font("Roboto", Font.PLAIN, 12);
-        FontMetrics metrics = getFontMetrics(font); //https://blog.naver.com/guzayoul/100037099995
-        int textWidth = metrics.stringWidth(text);
-        int textHeight = metrics.getHeight();
+        FontMetrics fontMetrics = getFontMetrics(font);
+        int textWidth = fontMetrics.stringWidth(text);
+        int textHeight = fontMetrics.getHeight();
 
         int buttonWidth = textWidth + (6 * 2);
         int buttonHeight = textHeight + 4;

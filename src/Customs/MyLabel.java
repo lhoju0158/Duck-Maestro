@@ -1,4 +1,4 @@
-package Labels;
+package Customs;
 
 import javax.swing.*;
 import java.awt.*;

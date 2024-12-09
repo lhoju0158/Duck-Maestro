@@ -21,8 +21,7 @@ public class Homepage extends JFrame {
         ImageIcon defaultProfile = new ImageIcon("./images/defaultProfile.jpg");
         ImageIcon gifProfile = new ImageIcon("./images/gifProfile.gif");
         JLabel profile = new JLabel(defaultProfile);
-        profile.setPreferredSize(new Dimension(300, 300)); // https://blog.naver.com/PostView.naver?blogId=kdy0573&logNo=150171645002
-        profile.setCursor(new Cursor(Cursor.HAND_CURSOR)); // https://202psj.tistory.com/289
+        profile.setPreferredSize(new Dimension(300, 300));
 
         profile.addMouseListener(new MouseAdapter() {
             @Override
@@ -65,7 +64,7 @@ public class Homepage extends JFrame {
         c.add(West, BorderLayout.WEST);
         c.add(East, BorderLayout.EAST);
 
-        center.setOpaque(false); // https://blog.naver.com/cbpark81/58285653
+        center.setOpaque(false);
         North.setOpaque(false);
         South.setOpaque(false);
         West.setOpaque(false);
@@ -73,7 +72,7 @@ public class Homepage extends JFrame {
 
         c.setBackground(new Color(33, 150, 211));
         setSize(800, 600);
-        setLocationRelativeTo(null); // https://improver.tistory.com/167
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
