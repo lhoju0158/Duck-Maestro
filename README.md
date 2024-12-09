@@ -40,8 +40,8 @@ This project is for a music composition and sheet music creation app that genera
 <div style="display: flex; justify-content: center;">
   <table style="border-collapse: collapse; border: none;">
     <tr>
-      <td style="border: none;"><img src="https://github.com/user-attachments/assets/980ed6dd-ba94-4ccd-bd41-f2613c02b386" alt="image-1" width="500"></td>
-      <td style="border: none;"><img src="https://github.com/user-attachments/assets/aae7710c-37e9-4634-b237-545dc4439c6f" alt="image-2" width="500"></td>
+ 	<td style="border: none;"><img src="https://github.com/user-attachments/assets/aae7710c-37e9-4634-b237-545dc4439c6f" alt="image-1" width="500"></td>
+      <td style="border: none;"><img src="https://github.com/user-attachments/assets/980ed6dd-ba94-4ccd-bd41-f2613c02b386" alt="image-2" width="500"></td>
     </tr>
   </table>
 </div>
@@ -53,3 +53,5 @@ This project is for a music composition and sheet music creation app that genera
 <p align="center">
   <img src="https://github.com/user-attachments/assets/455ac741-a006-4ab4-b64a-832049c09388">
 </p>
+
+<audio src="https://raw.githubusercontent.com/lhoju0158/music_application/main/generatedSoundSource/Drama.wav" controls></audio>
