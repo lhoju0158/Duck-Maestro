@@ -54,7 +54,5 @@ This project is for a music composition and sheet music creation app that genera
   <img src="https://github.com/user-attachments/assets/455ac741-a006-4ab4-b64a-832049c09388">
 </p>
 
-<audio controls>
-  <source src="https://lhj0158.github.io/music_application/generatedSoundSource/Drama.wav" type="audio/wav">
-  Your browser does not support the audio element.
-</audio>
+### Result Audio
+https://lhoju0158.github.io/music_application/
