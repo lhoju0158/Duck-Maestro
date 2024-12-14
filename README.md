@@ -8,7 +8,7 @@ This project is for a music composition and sheet music creation app that genera
   <table style="border-collapse: collapse; border: none;">
     <tr>
       <td style="border: none;"><img src="https://github.com/user-attachments/assets/f9d3f785-5708-473d-84db-d0d7bb55afc6" alt="image-1" width="500"></td>
-      <td style="border: none;"><img src="https://github.com/user-attachments/assets/5bbc6086-ccd8-4ec2-9eb8-e5c15dc3bb6b" alt="image-2" width="500"></td>
+      <td style="border: none;"><img src="https://github.com/user-attachments/assets/a8558261-1a4b-4fe2-b138-95465f817b3e" alt="image-2" width="500"></td>
     </tr>
   </table>
 </div>
@@ -41,7 +41,7 @@ This project is for a music composition and sheet music creation app that genera
   <table style="border-collapse: collapse; border: none;">
     <tr>
  	<td style="border: none;"><img src="https://github.com/user-attachments/assets/aae7710c-37e9-4634-b237-545dc4439c6f" alt="image-1" width="500"></td>
-      <td style="border: none;"><img src="https://github.com/user-attachments/assets/980ed6dd-ba94-4ccd-bd41-f2613c02b386" alt="image-2" width="500"></td>
+      <td style="border: none;"><img src="https://github.com/user-attachments/assets/6ac8f553-3caf-499c-9001-55468793fe2f" alt="image-2" width="500"></td>
     </tr>
   </table>
 </div>
@@ -54,4 +54,7 @@ This project is for a music composition and sheet music creation app that genera
   <img src="https://github.com/user-attachments/assets/455ac741-a006-4ab4-b64a-832049c09388">
 </p>
 
-<audio src="https://raw.githubusercontent.com/lhoju0158/music_application/main/generatedSoundSource/Drama.wav" controls></audio>
+<audio controls>
+  <source src="https://lhj0158.github.io/music_application/generatedSoundSource/Drama.wav" type="audio/wav">
+  Your browser does not support the audio element.
+</audio>
