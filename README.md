@@ -55,4 +55,4 @@ This project is for a music composition and sheet music creation app that genera
 </p>
 
 ### Result Audio
-https://lhoju0158.github.io/music_application/
+https://lhoju0158.github.io/Duck-Maestro/
